@@ -1,0 +1,7 @@
+parameters:
+#    recipe.example.class: CocinamosTodos\RecipeBundle\Example
+
+services:
+#    recipe.example:
+#        class: %recipe.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

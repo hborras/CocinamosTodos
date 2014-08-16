@@ -1,0 +1,7 @@
+parameters:
+#    nationality.example.class: CocinamosTodos\NationalityBundle\Example
+
+services:
+#    nationality.example:
+#        class: %nationality.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

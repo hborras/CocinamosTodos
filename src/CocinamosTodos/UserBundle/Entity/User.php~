@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 /**
  * CocinamosTodos\UserBundle\Entity\User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table()
  * @ORM\Entity(repositoryClass="CocinamosTodos\UserBundle\Entity\UserRepository")
  * @UniqueEntity(fields="email", message="Ese correo electrónico ya está en uso. Selecciona otro", groups={"register"})
  * @UniqueEntity(fields="username", message="Ese usuario ya está en uso. Selecciona otro", groups={"register"})
@@ -610,25 +610,25 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Set path
+     * Set avatarRoute
      *
-     * @param string $path
+     * @param string $avatarRoute
      * @return User
      */
-    public function setPath($path)
+    public function setAvatarRoute($avatarRoute)
     {
-        $this->path = $path;
+        $this->avatarRoute = $avatarRoute;
 
         return $this;
     }
 
     /**
-     * Get path
+     * Get avatarRoute
      *
      * @return string 
      */
-    public function getPath()
+    public function getAvatarRoute()
     {
-        return $this->path;
+        return $this->avatarRoute;
     }
 }
