@@ -1,0 +1,7 @@
+parameters:
+#    kind_of_food.example.class: CocinamosTodos\KindOfFoodBundle\Example
+
+services:
+#    kind_of_food.example:
+#        class: %kind_of_food.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

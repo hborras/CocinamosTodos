@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new CocinamosTodos\UserBundle\UserBundle(),
             new CocinamosTodos\RecipeBundle\RecipeBundle(),
             new CocinamosTodos\NationalityBundle\NationalityBundle(),
+            new CocinamosTodos\KindOfFoodBundle\KindOfFoodBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

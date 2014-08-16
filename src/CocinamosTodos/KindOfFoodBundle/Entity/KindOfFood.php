@@ -1,15 +1,15 @@
 <?php
 
-namespace CocinamosTodos\NationalityBundle\Entity;
+namespace CocinamosTodos\KindOfFoodBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="nationality")
+ * @ORM\Table(name="kind_of_food")
  * @ORM\Entity()
  */
 
-class Nationality {
+class KindOfFood {
     
     /**
      * @ORM\Id
@@ -40,7 +40,7 @@ class Nationality {
      * Set name
      *
      * @param string $name
-     * @return Nationality
+     * @return KindOfFood
      */
     public function setName($name)
     {
