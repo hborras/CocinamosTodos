@@ -425,4 +425,47 @@ class Recipe {
     {
         return $this->quantityOfPeople;
     }
+
+    /**
+     * Get pictures
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPictures()
+    {
+        return $this->pictures;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \CocinamosTodos\RecipeBundle\Entity\Comment $comments
+     * @return Recipe
+     */
+    public function addComment(\CocinamosTodos\RecipeBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \CocinamosTodos\RecipeBundle\Entity\Comment $comments
+     */
+    public function removeComment(\CocinamosTodos\RecipeBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 }

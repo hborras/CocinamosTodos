@@ -1,0 +1,40 @@
+<?php
+
+
+namespace CocinamosTodos\RecipeBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CocinamosTodos\RecipeBundle\Entity\RecipeRepository")
+ */
+class Comment{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    /**
+     * @ORM\Column(name="created_at",type="datetime")
+     */
+    protected $createdAt;
+    
+    /**
+     * @ORM\Column(name="modified_at",type="datetime")
+     */
+    protected $modifiedAt;
+    
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $comment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CocinamosTodos\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $user;
+}
