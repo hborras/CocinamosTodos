@@ -41,6 +41,12 @@ class Picture {
      * @Assert\Type(type="integer") 
      */
     protected $height;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="CocinamosTodos\RecipeBundle\Entity\Recipe")
+     * @ORM\JoinColumn(name="recipe_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $recipe;
 
     /**
      * Get id
@@ -119,5 +125,28 @@ class Picture {
     public function getHeight()
     {
         return $this->height;
+    }
+
+    /**
+     * Set recipe
+     *
+     * @param \CocinamosTodos\RecipeBundle\Entity\Recipe $recipe
+     * @return Picture
+     */
+    public function setRecipe(\CocinamosTodos\RecipeBundle\Entity\Recipe $recipe = null)
+    {
+        $this->recipe = $recipe;
+
+        return $this;
+    }
+
+    /**
+     * Get recipe
+     *
+     * @return \CocinamosTodos\RecipeBundle\Entity\Recipe 
+     */
+    public function getRecipe()
+    {
+        return $this->recipe;
     }
 }

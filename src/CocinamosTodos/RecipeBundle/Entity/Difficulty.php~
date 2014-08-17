@@ -1,15 +1,17 @@
 <?php
 
-namespace CocinamosTodos\NationalityBundle\Entity;
+namespace CocinamosTodos\RecipeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(name="nationality")
+ * @ORM\Entity
+ * @ORM\Table(name="difficulty")
  * @ORM\Entity()
  */
 
-class Nationality {
+class Difficulty {
     
     /**
      * @ORM\Id
@@ -17,14 +19,13 @@ class Nationality {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
-     * @var string $name
-     * 
-     * @ORM\Column(name="name",type="string",nullable=true)
+     * @ORM\Column(name="name",type="string")
+     *
+     * @Assert\NotBlank()
      */
     protected $name;
-    
 
     /**
      * Get id
@@ -40,7 +41,7 @@ class Nationality {
      * Set name
      *
      * @param string $name
-     * @return Nationality
+     * @return Difficulty
      */
     public function setName($name)
     {
