@@ -114,7 +114,12 @@ class Recipe {
     /**
      * @ORM\OneToMany (targetEntity="CocinamosTodos\RecipeBundle\Entity\Picture", mappedBy="recipe", cascade={"all"})
      */
-    protected $picture;
+    protected $pictures;
+    
+    /**
+     * @ORM\OneToMany (targetEntity="CocinamosTodos\RecipeBundle\Entity\Comment", mappedBy="recipe", cascade={"all"})
+     */
+    protected $comments;
     
     
     /**
