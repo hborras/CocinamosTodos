@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Base\BaseSlug;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -11,14 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\RecipeRepository")
  */
 
-class Recipe {
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+class Recipe extends BaseSlug {
 
     /**
      * @var string $title
@@ -27,14 +21,6 @@ class Recipe {
      * @Assert\NotBlank()
      */
     protected $title;
-
-    /**
-     * @var string $slug
-     *
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
-     */
-    protected $slug;
 
     /**
      * @var string $description
@@ -51,22 +37,6 @@ class Recipe {
      * @Assert\NotBlank()
      */
     protected $quantityOfPeople;
-
-    /**
-     * @var datetime createdAt
-     *
-     * @ORM\Column(name="created_at",type="datetime")
-     * @Assert\Datetime()
-     */
-    protected $createdAt;
-
-    /**
-     * @var datetime modifiedAt
-     *
-     * @ORM\Column(name="modified_at",type="datetime")
-     * @Assert\Datetime()
-     */
-    protected $modifiedAt;
 
     /**
      * @var boolean $vegan
@@ -121,6 +91,11 @@ class Recipe {
      */
     protected $comments;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $user;
 
     /**
      * Constructor
@@ -130,15 +105,6 @@ class Recipe {
         $this->picture = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set title
@@ -207,52 +173,6 @@ class Recipe {
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return Recipe
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set modifiedAt
-     *
-     * @param \DateTime $modifiedAt
-     * @return Recipe
-     */
-    public function setModifiedAt($modifiedAt)
-    {
-        $this->modifiedAt = $modifiedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get modifiedAt
-     *
-     * @return \DateTime
-     */
-    public function getModifiedAt()
-    {
-        return $this->modifiedAt;
     }
 
     /**
@@ -467,5 +387,28 @@ class Recipe {
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return Recipe
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

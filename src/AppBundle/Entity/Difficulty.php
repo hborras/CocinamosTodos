@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Base\BaseSlug;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -11,14 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  */
 
-class Difficulty {
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+class Difficulty extends BaseSlug {
 
     /**
      * @ORM\Column(name="name",type="string")
@@ -26,16 +20,6 @@ class Difficulty {
      * @Assert\NotBlank()
      */
     protected $name;
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set name

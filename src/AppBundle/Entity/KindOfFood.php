@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Base\BaseSlug;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,14 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  */
 
-class KindOfFood {
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+class KindOfFood extends BaseSlug {
 
     /**
      * @var string $name
@@ -24,17 +18,6 @@ class KindOfFood {
      * @ORM\Column(name="name",type="string",nullable=true)
      */
     protected $name;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set name
@@ -58,4 +41,5 @@ class KindOfFood {
     {
         return $this->name;
     }
+
 }

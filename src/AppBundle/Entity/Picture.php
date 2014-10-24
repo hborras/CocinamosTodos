@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Base\BaseSlug;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -10,14 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  */
 
-class Picture {
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+class Picture extends BaseSlug {
 
     /**
      * @var string $path
@@ -43,20 +37,17 @@ class Picture {
     protected $height;
 
     /**
+     * @var string $alt
+     *
+     * @ORM/Column(name="alt",type="string",nullable=true)
+     */
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Recipe")
      * @ORM\JoinColumn(name="recipe_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $recipe;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set path

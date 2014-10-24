@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Base\BaseSlug;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,14 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  */
 
-class Nationality {
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+class Nationality extends BaseSlug{
 
     /**
      * @var string $name
@@ -25,16 +19,12 @@ class Nationality {
      */
     protected $name;
 
-
     /**
-     * Get id
+     * @var string $path
      *
-     * @return integer
+     * @ORM\Column(name="path",type="string",nullable=true)
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $path;
 
     /**
      * Set name

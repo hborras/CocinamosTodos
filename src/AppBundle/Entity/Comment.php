@@ -3,30 +3,15 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Base\Base;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\RecipeRepository")
  */
-class Comment{
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
-     * @ORM\Column(name="created_at",type="datetime")
-     */
-    protected $createdAt;
-
-    /**
-     * @ORM\Column(name="modified_at",type="datetime")
-     */
-    protected $modifiedAt;
-
+class Comment extends Base{
     /**
      * @ORM\Column(type="text")
      */
@@ -39,60 +24,10 @@ class Comment{
     protected $user;
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Recipe")
+     * @ORM\JoinColumn(name="recipe_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return Comment
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set modifiedAt
-     *
-     * @param \DateTime $modifiedAt
-     * @return Comment
-     */
-    public function setModifiedAt($modifiedAt)
-    {
-        $this->modifiedAt = $modifiedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get modifiedAt
-     *
-     * @return \DateTime
-     */
-    public function getModifiedAt()
-    {
-        return $this->modifiedAt;
-    }
+    private $recipe;
 
     /**
      * Set comment
@@ -138,5 +73,28 @@ class Comment{
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set recipe
+     *
+     * @param \AppBundle\Entity\Recipe $recipe
+     * @return Comment
+     */
+    public function setRecipe(\AppBundle\Entity\Recipe $recipe = null)
+    {
+        $this->recipe = $recipe;
+
+        return $this;
+    }
+
+    /**
+     * Get recipe
+     *
+     * @return \AppBundle\Entity\Recipe 
+     */
+    public function getRecipe()
+    {
+        return $this->recipe;
     }
 }

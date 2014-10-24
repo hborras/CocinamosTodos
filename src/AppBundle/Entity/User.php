@@ -2,9 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Base\Base;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
@@ -15,17 +15,8 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  * @UniqueEntity(fields="email", message="Ese correo electrónico ya está en uso. Selecciona otro", groups={"register"})
  * @UniqueEntity(fields="username", message="Ese usuario ya está en uso. Selecciona otro", groups={"register"})
  */
-class User implements AdvancedUserInterface
+class User extends Base implements AdvancedUserInterface
 {
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
     /**
      * @var string $username
      *
@@ -107,14 +98,6 @@ class User implements AdvancedUserInterface
      * @Assert\Length(min = 6)
      */
     protected $password;
-
-    /**
-     * @var datetime $createdAt
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     * @Assert\DateTime()
-     */
-    protected $createdAt;
 
     /**
      * @var datetime $lastLogin
@@ -212,17 +195,6 @@ class User implements AdvancedUserInterface
 
     public function isEnabled() {
         return $this->getEnabled();
-    }
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -423,29 +395,6 @@ class User implements AdvancedUserInterface
         $this->password = $password;
 
         return $this;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return User
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
     }
 
     /**
