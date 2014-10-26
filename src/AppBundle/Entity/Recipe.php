@@ -48,6 +48,13 @@ class Recipe extends BaseSlug {
     protected $calories;
 
     /**
+     * @var integer $score
+     *
+     * @ORM\Column(name="score", type="integer")
+     */
+    protected $score;
+
+    /**
      * @var boolean $vegan
      *
      * @ORM\Column(name="vegan", type="boolean")
@@ -356,6 +363,29 @@ class Recipe extends BaseSlug {
     public function setCalories($calories)
     {
         $this->calories = $calories;
+
+        return $this;
+    }
+
+    /**
+     * Get score
+     *
+     * @return integer
+     */
+    public function getScore()
+    {
+        return $this->score;
+    }
+
+    /**
+     * Set score
+     *
+     * @param integer $score
+     * @return Recipe
+     */
+    public function setScore($score)
+    {
+        $this->score = $score;
 
         return $this;
     }

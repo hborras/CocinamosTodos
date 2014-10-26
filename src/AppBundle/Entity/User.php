@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Base\BaseParentRecipe;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints;
+use Symfony\Bridge\Doctrine\Validator\Constraints as Unique;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -14,8 +14,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
- * @UniqueEntity(fields="email", message="Ese correo electrónico ya está en uso. Selecciona otro", groups={"register"})
- * @UniqueEntity(fields="username", message="Ese usuario ya está en uso. Selecciona otro", groups={"register"})
+ * @Unique\UniqueEntity(fields="email", message="Ese correo electrónico ya está en uso. Selecciona otro", groups={"register"})
+ * @Unique\UniqueEntity(fields="username", message="Ese usuario ya está en uso. Selecciona otro", groups={"register"})
  */
 class User extends BaseParentRecipe implements AdvancedUserInterface
 {
