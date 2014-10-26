@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Base\BaseSlug;
+use AppBundle\Entity\Base\BaseParentRecipe;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  */
 
-class Difficulty extends BaseSlug {
+class Difficulty extends BaseParentRecipe {
 
     /**
      * @ORM\Column(name="name",type="string")
@@ -43,4 +43,5 @@ class Difficulty extends BaseSlug {
     {
         return $this->name;
     }
+
 }

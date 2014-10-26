@@ -39,4 +39,75 @@ class Ingredient extends BaseSlug {
      */
     protected $description_link;
 
+    /**
+     * @var string $path
+     *
+     * @ORM\Column(name="path",type="string",nullable=true)
+     */
+    protected $path;
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionLink()
+    {
+        return $this->description_link;
+    }
+
+    /**
+     * @param string $description_link
+     */
+    public function setDescriptionLink($description_link)
+    {
+        $this->description_link = $description_link;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+
 } 

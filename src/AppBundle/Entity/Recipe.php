@@ -3,8 +3,10 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Base\BaseSlug;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity
@@ -37,6 +39,13 @@ class Recipe extends BaseSlug {
      * @Assert\NotBlank()
      */
     protected $quantityOfPeople;
+
+    /**
+     * @var integer $calories
+     *
+     * @ORM\Column(name="calories",type="integer")
+     */
+    protected $calories;
 
     /**
      * @var boolean $vegan
@@ -76,7 +85,7 @@ class Recipe extends BaseSlug {
      * @var integer $kindOfFood
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\KindOfFood")
-     * @ORM\JoinColumn(name="kindOfFood_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="kind_of_food_id", referencedColumnName="id", onDelete="CASCADE")
      * @Assert\Type("AppBundle\Entity\KindOfFood")
      */
     protected $kindOfFood;
@@ -92,17 +101,32 @@ class Recipe extends BaseSlug {
     protected $comments;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\IngredientMeasurement", mappedBy="ingredient_measurament", cascade={"all"})
+     */
+    protected $ingredients;
+
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $user;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $category;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->picture = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->pictures    = new ArrayCollection();
+        $this->comments    = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
     }
 
 
@@ -127,29 +151,6 @@ class Recipe extends BaseSlug {
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Recipe
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 
     /**
@@ -227,7 +228,7 @@ class Recipe extends BaseSlug {
      * @param \AppBundle\Entity\Difficulty $difficulty
      * @return Recipe
      */
-    public function setDifficulty(\AppBundle\Entity\Difficulty $difficulty = null)
+    public function setDifficulty(Difficulty $difficulty = null)
     {
         $this->difficulty = $difficulty;
 
@@ -250,7 +251,7 @@ class Recipe extends BaseSlug {
      * @param \AppBundle\Entity\Nationality $nationality
      * @return Recipe
      */
-    public function setNationality(\AppBundle\Entity\Nationality $nationality = null)
+    public function setNationality(Nationality $nationality = null)
     {
         $this->nationality = $nationality;
 
@@ -273,7 +274,7 @@ class Recipe extends BaseSlug {
      * @param \AppBundle\Entity\KindOfFood $kindOfFood
      * @return Recipe
      */
-    public function setKindOfFood(\AppBundle\Entity\KindOfFood $kindOfFood = null)
+    public function setKindOfFood(KindOfFood $kindOfFood = null)
     {
         $this->kindOfFood = $kindOfFood;
 
@@ -296,9 +297,9 @@ class Recipe extends BaseSlug {
      * @param \AppBundle\Entity\Picture $picture
      * @return Recipe
      */
-    public function addPicture(\AppBundle\Entity\Picture $picture)
+    public function addPicture(Picture $picture)
     {
-        $this->picture[] = $picture;
+        $this->pictures[] = $picture;
 
         return $this;
     }
@@ -308,19 +309,19 @@ class Recipe extends BaseSlug {
      *
      * @param \AppBundle\Entity\Picture $picture
      */
-    public function removePicture(\AppBundle\Entity\Picture $picture)
+    public function removePicture(Picture $picture)
     {
-        $this->picture->removeElement($picture);
+        $this->pictures->removeElement($picture);
     }
 
     /**
-     * Get picture
+     * Get pictures
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPicture()
+    public function getPictures()
     {
-        return $this->picture;
+        return $this->pictures;
     }
 
     /**
@@ -347,24 +348,37 @@ class Recipe extends BaseSlug {
     }
 
     /**
-     * Get pictures
+     * Set calories
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param integer $calories
+     * @return Recipe
      */
-    public function getPictures()
+    public function setCalories($calories)
     {
-        return $this->pictures;
+        $this->calories = $calories;
+
+        return $this;
     }
 
     /**
-     * Add comments
+     * Get calories
      *
-     * @param \AppBundle\Entity\Comment $comments
+     * @return integer
+     */
+    public function getCalories()
+    {
+        return $this->calories;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
      * @return Recipe
      */
-    public function addComment(\AppBundle\Entity\Comment $comments)
+    public function addComment(Comment $comment)
     {
-        $this->comments[] = $comments;
+        $this->comments[] = $comment;
 
         return $this;
     }
@@ -372,11 +386,11 @@ class Recipe extends BaseSlug {
     /**
      * Remove comments
      *
-     * @param \AppBundle\Entity\Comment $comments
+     * @param \AppBundle\Entity\Comment $comment
      */
-    public function removeComment(\AppBundle\Entity\Comment $comments)
+    public function removeComment(Comment $comment)
     {
-        $this->comments->removeElement($comments);
+        $this->comments->removeElement($comment);
     }
 
     /**
@@ -395,7 +409,7 @@ class Recipe extends BaseSlug {
      * @param \AppBundle\Entity\User $user
      * @return Recipe
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -410,5 +424,61 @@ class Recipe extends BaseSlug {
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set difficulty
+     *
+     * @param \AppBundle\Entity\Category $category
+     * @return Recipe
+     */
+    public function setCategory(Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Add ingredient
+     *
+     * @param IngredientMeasurement $ingredient
+     * @return Recipe
+     */
+    public function addIngredient(IngredientMeasurement $ingredient)
+    {
+        $this->ingredients[] = $ingredient;
+
+        return $this;
+    }
+
+    /**
+     * Remove ingredient
+     *
+     * @param IngredientMeasurement $ingredient
+     */
+    public function removeIngredient(IngredientMeasurement $ingredient)
+    {
+        $this->comments->removeElement($ingredient);
+    }
+
+    /**
+     * Get ingredients
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIngredients()
+    {
+        return $this->ingredients;
     }
 }

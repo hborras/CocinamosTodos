@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Base\BaseSlug;
+use AppBundle\Entity\Base\BaseParentRecipe;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  */
 
-class Nationality extends BaseSlug{
+class Nationality extends BaseParentRecipe {
 
     /**
      * @var string $name
@@ -25,6 +25,22 @@ class Nationality extends BaseSlug{
      * @ORM\Column(name="path",type="string",nullable=true)
      */
     protected $path;
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
 
     /**
      * Set name

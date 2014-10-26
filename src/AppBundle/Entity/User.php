@@ -2,10 +2,12 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Base\Base;
+use AppBundle\Entity\Base\BaseParentRecipe;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * AppBundle\Entity\User
@@ -15,7 +17,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  * @UniqueEntity(fields="email", message="Ese correo electrónico ya está en uso. Selecciona otro", groups={"register"})
  * @UniqueEntity(fields="username", message="Ese usuario ya está en uso. Selecciona otro", groups={"register"})
  */
-class User extends Base implements AdvancedUserInterface
+class User extends BaseParentRecipe implements AdvancedUserInterface
 {
     /**
      * @var string $username
@@ -100,7 +102,7 @@ class User extends Base implements AdvancedUserInterface
     protected $password;
 
     /**
-     * @var datetime $lastLogin
+     * @var \Datetime $lastLogin
      *
      * @ORM\Column(name="last_login", type="datetime")
      * @Assert\DateTime()
@@ -122,7 +124,7 @@ class User extends Base implements AdvancedUserInterface
     protected $passwordToken;
 
     /**
-     * @var datetime $passwordRequestedAt
+     * @var \Datetime $passwordRequestedAt
      *
      * @ORM\Column(name="password_requested_at", type="datetime")
      * @Assert\DateTime()
@@ -146,7 +148,7 @@ class User extends Base implements AdvancedUserInterface
     protected $expired;
 
     /**
-     * @var datetime $expiresAt
+     * @var \Datetime $expiresAt
      *
      * @ORM\Column(name="expires_at", type="datetime")
      * @Assert\DateTime()
@@ -155,10 +157,12 @@ class User extends Base implements AdvancedUserInterface
 
     public function __construct()
     {
+        parent::__construct();
         $this->enabled    = false;
         $this->locked     = false;
         $this->expired    = false;
         $this->newsletter = false;
+        $this->favorites  = new ArrayCollection();
     }
 
     public function eraseCredentials() {
@@ -580,4 +584,5 @@ class User extends Base implements AdvancedUserInterface
     {
         return $this->path;
     }
+
 }

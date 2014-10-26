@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Base\BaseSlug;
+use AppBundle\Entity\Base\BaseParentRecipe;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  */
 
-class KindOfFood extends BaseSlug {
+class KindOfFood extends BaseParentRecipe {
 
     /**
      * @var string $name
@@ -41,5 +41,7 @@ class KindOfFood extends BaseSlug {
     {
         return $this->name;
     }
+
+
 
 }
