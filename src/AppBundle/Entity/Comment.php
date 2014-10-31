@@ -30,6 +30,13 @@ class Comment extends Base{
     private $recipe;
 
     /**
+     * @var integer $score
+     *
+     * @ORM\Column(name="score", type="integer")
+     */
+    protected $score;
+
+    /**
      * Set comment
      *
      * @param string $comment
@@ -55,10 +62,10 @@ class Comment extends Base{
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\User $user
+     * @param User $user
      * @return Comment
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -68,7 +75,7 @@ class Comment extends Base{
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
@@ -78,10 +85,10 @@ class Comment extends Base{
     /**
      * Set recipe
      *
-     * @param \AppBundle\Entity\Recipe $recipe
+     * @param Recipe $recipe
      * @return Comment
      */
-    public function setRecipe(\AppBundle\Entity\Recipe $recipe = null)
+    public function setRecipe(Recipe $recipe = null)
     {
         $this->recipe = $recipe;
 
@@ -91,10 +98,33 @@ class Comment extends Base{
     /**
      * Get recipe
      *
-     * @return \AppBundle\Entity\Recipe 
+     * @return Recipe
      */
     public function getRecipe()
     {
         return $this->recipe;
+    }
+
+    /**
+     * Get score
+     *
+     * @return integer
+     */
+    public function getScore()
+    {
+        return $this->score;
+    }
+
+    /**
+     * Set score
+     *
+     * @param integer $score
+     * @return Recipe
+     */
+    public function setScore($score)
+    {
+        $this->score = $score;
+
+        return $this;
     }
 }

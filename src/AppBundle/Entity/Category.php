@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table(name="category")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\CategoryRepository")
  */
 
 class Category extends BaseParentRecipe {

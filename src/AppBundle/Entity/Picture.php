@@ -121,10 +121,10 @@ class Picture extends BaseSlug {
     /**
      * Set recipe
      *
-     * @param \AppBundle\Entity\Recipe $recipe
+     * @param Recipe $recipe
      * @return Picture
      */
-    public function setRecipe(\AppBundle\Entity\Recipe $recipe = null)
+    public function setRecipe(Recipe $recipe = null)
     {
         $this->recipe = $recipe;
 
@@ -134,7 +134,7 @@ class Picture extends BaseSlug {
     /**
      * Get recipe
      *
-     * @return \AppBundle\Entity\Recipe
+     * @return Recipe
      */
     public function getRecipe()
     {

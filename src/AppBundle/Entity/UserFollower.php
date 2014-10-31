@@ -14,11 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="user_favorites")
+ * @ORM\Table(name="user_followers")
  * @ORM\Entity()
  */
 
-class UserFavorite extends Base {
+class UserFollower extends Base {
     /**
      * @var integer $user
      *
@@ -31,11 +31,11 @@ class UserFavorite extends Base {
     /**
      * @var integer $recipe
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Recipe")
-     * @ORM\JoinColumn(name="recipe_id", referencedColumnName="id", onDelete="CASCADE")
-     * @Assert\Type("AppBundle\Entity\Recipe")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="follower_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\Type("AppBundle\Entity\User")
      */
-    protected $recipe;
+    protected $follower;
 
     /**
      * Set user
@@ -61,25 +61,25 @@ class UserFavorite extends Base {
     }
 
     /**
-     * Set recipe
+     * Set follower
      *
-     * @param Recipe $recipe
+     * @param User $follower
      * @return UserFavorite
      */
-    public function setRecipe(Recipe $recipe = null)
+    public function setFollower(User $follower = null)
     {
-        $this->recipe = $recipe;
+        $this->follower = $follower;
 
         return $this;
     }
 
     /**
-     * Get recipe
+     * Get follower
      *
-     * @return Recipe
+     * @return User
      */
-    public function getRecipe()
+    public function getFollower()
     {
-        return $this->recipe;
+        return $this->follower;
     }
 }

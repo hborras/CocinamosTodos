@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -12,4 +12,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+
 }

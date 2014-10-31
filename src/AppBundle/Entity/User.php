@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * AppBundle\Entity\User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserRepository")
  * @Unique\UniqueEntity(fields="email", message="Ese correo electrónico ya está en uso. Selecciona otro", groups={"register"})
  * @Unique\UniqueEntity(fields="username", message="Ese usuario ya está en uso. Selecciona otro", groups={"register"})
  */
