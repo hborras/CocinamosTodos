@@ -1,0 +1,3 @@
+frontend:
+    resource: "@AppBundle/Resources/config/Frontend/Category/routing.yml"
+    prefix:   /category
