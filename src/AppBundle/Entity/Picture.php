@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  */
 
-class Picture extends BaseSlug {
-
+class Picture extends BaseSlug
+{
     /**
      * @var string $path
      *
@@ -43,16 +43,15 @@ class Picture extends BaseSlug {
      */
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Recipe")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Recipe",inversedBy="pictures")
      * @ORM\JoinColumn(name="recipe_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $recipe;
 
-
     /**
      * Set path
      *
-     * @param string $path
+     * @param  string  $path
      * @return Picture
      */
     public function setPath($path)
@@ -75,7 +74,7 @@ class Picture extends BaseSlug {
     /**
      * Set width
      *
-     * @param integer $width
+     * @param  integer $width
      * @return Picture
      */
     public function setWidth($width)
@@ -98,7 +97,7 @@ class Picture extends BaseSlug {
     /**
      * Set height
      *
-     * @param integer $height
+     * @param  integer $height
      * @return Picture
      */
     public function setHeight($height)
@@ -121,7 +120,7 @@ class Picture extends BaseSlug {
     /**
      * Set recipe
      *
-     * @param Recipe $recipe
+     * @param  Recipe  $recipe
      * @return Picture
      */
     public function setRecipe(Recipe $recipe = null)

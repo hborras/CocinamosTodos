@@ -12,8 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  */
 
-class Difficulty extends BaseParentRecipe {
-
+class Difficulty extends BaseParentRecipe
+{
     /**
      * @ORM\Column(name="name",type="string")
      *
@@ -24,7 +24,7 @@ class Difficulty extends BaseParentRecipe {
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string     $name
      * @return Difficulty
      */
     public function setName($name)

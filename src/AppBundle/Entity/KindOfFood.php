@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  */
 
-class KindOfFood extends BaseParentRecipe {
-
+class KindOfFood extends BaseParentRecipe
+{
     /**
      * @var string $name
      *
@@ -22,7 +22,7 @@ class KindOfFood extends BaseParentRecipe {
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string     $name
      * @return KindOfFood
      */
     public function setName($name)
@@ -41,7 +41,5 @@ class KindOfFood extends BaseParentRecipe {
     {
         return $this->name;
     }
-
-
 
 }

@@ -8,7 +8,6 @@
 
 namespace AppBundle\Entity;
 
-
 use AppBundle\Entity\Base\BaseSlug;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,8 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  */
 
-class UnitOfMeasurement extends BaseSlug {
-
+class UnitOfMeasurement extends BaseSlug
+{
     /**
      * @ORM\Column(name="name",type="string")
      */
@@ -62,4 +61,4 @@ class UnitOfMeasurement extends BaseSlug {
         $this->name = $name;
     }
 
-} 
+}

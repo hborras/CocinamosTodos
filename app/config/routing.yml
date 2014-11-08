@@ -1,4 +1,5 @@
-acme_app:
-    resource: "@AppBundle/Resources/config/routing.yml"
-    prefix:   /
+category:
+    resource: "@AppBundle/Resources/config/Category/routing.yml"
+    prefix:   /category
+
 

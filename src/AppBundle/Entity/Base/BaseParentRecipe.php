@@ -12,22 +12,22 @@ use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\Recipe;
 use Doctrine\ORM\Mapping as ORM;
 
-
-class BaseParentRecipe extends BaseSlug {
-
+class BaseParentRecipe extends BaseSlug
+{
     /**
      * @ORM\OneToMany (targetEntity="AppBundle\Entity\Recipe", mappedBy="recipe", cascade={"all"})
      */
     protected $recipes;
 
-    function __construct(){
+    public function __construct()
+    {
         $this->recipes  = new ArrayCollection();
     }
 
     /**
      * Add recipe
      *
-     * @param \AppBundle\Entity\Recipe $recipe
+     * @param  \AppBundle\Entity\Recipe $recipe
      * @return Recipe
      */
     public function addRecipe(Recipe $recipe)
@@ -57,5 +57,4 @@ class BaseParentRecipe extends BaseSlug {
         return $this->recipes;
     }
 
-
-} 
+}

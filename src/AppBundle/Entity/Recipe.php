@@ -7,15 +7,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="recipe")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\RecipeRepository")
  */
 
-class Recipe extends BaseSlug {
-
+class Recipe extends BaseSlug
+{
     /**
      * @var string $title
      *
@@ -112,13 +111,11 @@ class Recipe extends BaseSlug {
      */
     protected $ingredients;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $user;
-
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
@@ -136,11 +133,10 @@ class Recipe extends BaseSlug {
         $this->ingredients = new ArrayCollection();
     }
 
-
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string $title
      * @return Recipe
      */
     public function setTitle($title)
@@ -163,7 +159,7 @@ class Recipe extends BaseSlug {
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string $description
      * @return Recipe
      */
     public function setDescription($description)
@@ -186,7 +182,7 @@ class Recipe extends BaseSlug {
     /**
      * Set vegan
      *
-     * @param boolean $vegan
+     * @param  boolean $vegan
      * @return Recipe
      */
     public function setVegan($vegan)
@@ -209,7 +205,7 @@ class Recipe extends BaseSlug {
     /**
      * Set visible
      *
-     * @param boolean $visible
+     * @param  boolean $visible
      * @return Recipe
      */
     public function setVisible($visible)
@@ -232,7 +228,7 @@ class Recipe extends BaseSlug {
     /**
      * Set difficulty
      *
-     * @param \AppBundle\Entity\Difficulty $difficulty
+     * @param  \AppBundle\Entity\Difficulty $difficulty
      * @return Recipe
      */
     public function setDifficulty(Difficulty $difficulty = null)
@@ -255,7 +251,7 @@ class Recipe extends BaseSlug {
     /**
      * Set nationality
      *
-     * @param \AppBundle\Entity\Nationality $nationality
+     * @param  \AppBundle\Entity\Nationality $nationality
      * @return Recipe
      */
     public function setNationality(Nationality $nationality = null)
@@ -278,7 +274,7 @@ class Recipe extends BaseSlug {
     /**
      * Set kindOfFood
      *
-     * @param \AppBundle\Entity\KindOfFood $kindOfFood
+     * @param  \AppBundle\Entity\KindOfFood $kindOfFood
      * @return Recipe
      */
     public function setKindOfFood(KindOfFood $kindOfFood = null)
@@ -301,7 +297,7 @@ class Recipe extends BaseSlug {
     /**
      * Add picture
      *
-     * @param \AppBundle\Entity\Picture $picture
+     * @param  \AppBundle\Entity\Picture $picture
      * @return Recipe
      */
     public function addPicture(Picture $picture)
@@ -334,7 +330,7 @@ class Recipe extends BaseSlug {
     /**
      * Set quantityOfPeople
      *
-     * @param integer $quantityOfPeople
+     * @param  integer $quantityOfPeople
      * @return Recipe
      */
     public function setQuantityOfPeople($quantityOfPeople)
@@ -357,7 +353,7 @@ class Recipe extends BaseSlug {
     /**
      * Set calories
      *
-     * @param integer $calories
+     * @param  integer $calories
      * @return Recipe
      */
     public function setCalories($calories)
@@ -380,7 +376,7 @@ class Recipe extends BaseSlug {
     /**
      * Set score
      *
-     * @param integer $score
+     * @param  integer $score
      * @return Recipe
      */
     public function setScore($score)
@@ -403,7 +399,7 @@ class Recipe extends BaseSlug {
     /**
      * Add comment
      *
-     * @param \AppBundle\Entity\Comment $comment
+     * @param  \AppBundle\Entity\Comment $comment
      * @return Recipe
      */
     public function addComment(Comment $comment)
@@ -436,7 +432,7 @@ class Recipe extends BaseSlug {
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\User $user
+     * @param  \AppBundle\Entity\User $user
      * @return Recipe
      */
     public function setUser(User $user = null)
@@ -449,7 +445,7 @@ class Recipe extends BaseSlug {
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\User 
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {
@@ -459,7 +455,7 @@ class Recipe extends BaseSlug {
     /**
      * Set difficulty
      *
-     * @param \AppBundle\Entity\Category $category
+     * @param  \AppBundle\Entity\Category $category
      * @return Recipe
      */
     public function setCategory(Category $category = null)
@@ -482,7 +478,7 @@ class Recipe extends BaseSlug {
     /**
      * Add ingredient
      *
-     * @param IngredientMeasurement $ingredient
+     * @param  IngredientMeasurement $ingredient
      * @return Recipe
      */
     public function addIngredient(IngredientMeasurement $ingredient)

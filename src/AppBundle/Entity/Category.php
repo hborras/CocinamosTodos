@@ -11,8 +11,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\CategoryRepository")
  */
 
-class Category extends BaseParentRecipe {
-
+class Category extends BaseParentRecipe
+{
     /**
      * @var string $name
      *
@@ -38,15 +38,21 @@ class Category extends BaseParentRecipe {
      **/
     private $parent;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->children = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string   $name
      * @return Category
      */
     public function setName($name)
@@ -59,7 +65,7 @@ class Category extends BaseParentRecipe {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -92,7 +98,7 @@ class Category extends BaseParentRecipe {
     /**
      * Add children
      *
-     * @param \AppBundle\Entity\category $children
+     * @param  \AppBundle\Entity\category $children
      * @return Category
      */
     public function addChild(category $children)
@@ -115,7 +121,7 @@ class Category extends BaseParentRecipe {
     /**
      * Get children
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getChildren()
     {
@@ -125,7 +131,7 @@ class Category extends BaseParentRecipe {
     /**
      * Set parent
      *
-     * @param \AppBundle\Entity\category $parent
+     * @param  \AppBundle\Entity\category $parent
      * @return Category
      */
     public function setParent(category $parent = null)
@@ -138,7 +144,7 @@ class Category extends BaseParentRecipe {
     /**
      * Get parent
      *
-     * @return \AppBundle\Entity\category 
+     * @return \AppBundle\Entity\category
      */
     public function getParent()
     {

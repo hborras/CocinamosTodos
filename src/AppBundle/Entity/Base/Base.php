@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks()
  */
 
-abstract class Base {
-
+abstract class Base
+{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -86,4 +86,4 @@ abstract class Base {
         return $this->updatedAt;
     }
 
-} 
+}

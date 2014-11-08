@@ -165,46 +165,54 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
         $this->favorites  = new ArrayCollection();
     }
 
-    public function eraseCredentials() {
-
+    public function eraseCredentials()
+    {
     }
 
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function getRoles() {
+    public function getRoles()
+    {
         return array('ROLE_USER');
     }
 
-    public function getSalt() {
+    public function getSalt()
+    {
         return $this->salt;
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function isAccountNonExpired() {
+    public function isAccountNonExpired()
+    {
         return !$this->getExpired();
     }
 
-    public function isAccountNonLocked() {
+    public function isAccountNonLocked()
+    {
         return !$this->getLocked();
     }
 
-    public function isCredentialsNonExpired() {
+    public function isCredentialsNonExpired()
+    {
         return !$this->getExpired();
     }
 
-    public function isEnabled() {
+    public function isEnabled()
+    {
         return $this->getEnabled();
     }
 
     /**
      * Set username
      *
-     * @param string $username
+     * @param  string $username
      * @return User
      */
     public function setUsername($username)
@@ -217,7 +225,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set usernameCanonical
      *
-     * @param string $usernameCanonical
+     * @param  string $usernameCanonical
      * @return User
      */
     public function setUsernameCanonical($usernameCanonical)
@@ -240,7 +248,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set email
      *
-     * @param string $email
+     * @param  string $email
      * @return User
      */
     public function setEmail($email)
@@ -263,7 +271,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set emailCanonical
      *
-     * @param string $emailCanonical
+     * @param  string $emailCanonical
      * @return User
      */
     public function setEmailCanonical($emailCanonical)
@@ -286,7 +294,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return User
      */
     public function setName($name)
@@ -309,7 +317,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set surname
      *
-     * @param string $surname
+     * @param  string $surname
      * @return User
      */
     public function setSurname($surname)
@@ -332,7 +340,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set newsletter
      *
-     * @param boolean $newsletter
+     * @param  boolean $newsletter
      * @return User
      */
     public function setNewsletter($newsletter)
@@ -355,7 +363,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set enabled
      *
-     * @param boolean $enabled
+     * @param  boolean $enabled
      * @return User
      */
     public function setEnabled($enabled)
@@ -378,7 +386,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set salt
      *
-     * @param string $salt
+     * @param  string $salt
      * @return User
      */
     public function setSalt($salt)
@@ -391,7 +399,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set password
      *
-     * @param string $password
+     * @param  string $password
      * @return User
      */
     public function setPassword($password)
@@ -404,7 +412,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set lastLogin
      *
-     * @param \DateTime $lastLogin
+     * @param  \DateTime $lastLogin
      * @return User
      */
     public function setLastLogin($lastLogin)
@@ -427,7 +435,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set confirmationToken
      *
-     * @param string $confirmationToken
+     * @param  string $confirmationToken
      * @return User
      */
     public function setConfirmationToken($confirmationToken)
@@ -450,7 +458,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set passwordToken
      *
-     * @param string $passwordToken
+     * @param  string $passwordToken
      * @return User
      */
     public function setPasswordToken($passwordToken)
@@ -473,7 +481,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set passwordRequestedAt
      *
-     * @param \DateTime $passwordRequestedAt
+     * @param  \DateTime $passwordRequestedAt
      * @return User
      */
     public function setPasswordRequestedAt($passwordRequestedAt)
@@ -496,7 +504,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set locked
      *
-     * @param boolean $locked
+     * @param  boolean $locked
      * @return User
      */
     public function setLocked($locked)
@@ -519,7 +527,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set expired
      *
-     * @param boolean $expired
+     * @param  boolean $expired
      * @return User
      */
     public function setExpired($expired)
@@ -542,7 +550,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set expiresAt
      *
-     * @param \DateTime $expiresAt
+     * @param  \DateTime $expiresAt
      * @return User
      */
     public function setExpiresAt($expiresAt)
@@ -565,7 +573,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     /**
      * Set path
      *
-     * @param string $path
+     * @param  string $path
      * @return User
      */
     public function setPath($path)

@@ -18,7 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  */
 
-class UserFavorite extends Base {
+class UserFavorite extends Base
+{
     /**
      * @var integer $user
      *
@@ -40,7 +41,7 @@ class UserFavorite extends Base {
     /**
      * Set user
      *
-     * @param User $user
+     * @param  User         $user
      * @return UserFavorite
      */
     public function setUser(User $user = null)
@@ -63,7 +64,7 @@ class UserFavorite extends Base {
     /**
      * Set recipe
      *
-     * @param Recipe $recipe
+     * @param  Recipe       $recipe
      * @return UserFavorite
      */
     public function setRecipe(Recipe $recipe = null)

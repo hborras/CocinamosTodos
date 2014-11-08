@@ -16,8 +16,8 @@ use AppBundle\Entity\Base\BaseSlug;
  * @ORM\Entity()
  */
 
-class Ingredient extends BaseSlug {
-
+class Ingredient extends BaseSlug
+{
     /**
      * @var string $name
      *
@@ -110,4 +110,4 @@ class Ingredient extends BaseSlug {
         $this->path = $path;
     }
 
-} 
+}

@@ -11,7 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\RecipeRepository")
  */
-class Comment extends Base{
+class Comment extends Base
+{
     /**
      * @ORM\Column(type="text")
      */
@@ -24,7 +25,7 @@ class Comment extends Base{
     protected $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Recipe")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Recipe",inversedBy="comments")
      * @ORM\JoinColumn(name="recipe_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $recipe;
@@ -39,7 +40,7 @@ class Comment extends Base{
     /**
      * Set comment
      *
-     * @param string $comment
+     * @param  string  $comment
      * @return Comment
      */
     public function setComment($comment)
@@ -62,7 +63,7 @@ class Comment extends Base{
     /**
      * Set user
      *
-     * @param User $user
+     * @param  User    $user
      * @return Comment
      */
     public function setUser(User $user = null)
@@ -85,7 +86,7 @@ class Comment extends Base{
     /**
      * Set recipe
      *
-     * @param Recipe $recipe
+     * @param  Recipe  $recipe
      * @return Comment
      */
     public function setRecipe(Recipe $recipe = null)
@@ -118,7 +119,7 @@ class Comment extends Base{
     /**
      * Set score
      *
-     * @param integer $score
+     * @param  integer $score
      * @return Recipe
      */
     public function setScore($score)

@@ -18,7 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  */
 
-class UserFollower extends Base {
+class UserFollower extends Base
+{
     /**
      * @var integer $user
      *
@@ -40,7 +41,7 @@ class UserFollower extends Base {
     /**
      * Set user
      *
-     * @param User $user
+     * @param  User         $user
      * @return UserFavorite
      */
     public function setUser(User $user = null)
@@ -63,7 +64,7 @@ class UserFollower extends Base {
     /**
      * Set follower
      *
-     * @param User $follower
+     * @param  User         $follower
      * @return UserFavorite
      */
     public function setFollower(User $follower = null)

@@ -18,8 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  */
 
-class IngredientMeasurement extends Base {
-
+class IngredientMeasurement extends Base
+{
     /**
      * @var integer $ingredient
      *
@@ -55,7 +55,7 @@ class IngredientMeasurement extends Base {
     /**
      * Set ingredient
      *
-     * @param Ingredient $ingredient
+     * @param  Ingredient            $ingredient
      * @return IngredientMeasurement
      */
     public function setIngredient(Ingredient $ingredient = null)
@@ -78,7 +78,7 @@ class IngredientMeasurement extends Base {
     /**
      * Set measurement
      *
-     * @param UnitOfMeasurement $measurement
+     * @param  UnitOfMeasurement     $measurement
      * @return IngredientMeasurement
      */
     public function setMeasurement(UnitOfMeasurement $measurement = null)
@@ -101,7 +101,7 @@ class IngredientMeasurement extends Base {
     /**
      * Set recipe
      *
-     * @param Recipe $recipe
+     * @param  Recipe                $recipe
      * @return IngredientMeasurement
      */
     public function setRecipe(Recipe $recipe = null)

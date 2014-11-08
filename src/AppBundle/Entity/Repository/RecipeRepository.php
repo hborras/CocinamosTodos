@@ -6,7 +6,8 @@ use Doctrine\ORM\EntityRepository;
 
 class RecipeRepository extends EntityRepository
 {
-    public function queryAllRecipe($orderBy = 'r.created_at',$sort = 'ASC') {
+    public function queryAllRecipe($orderBy = 'r.created_at',$sort = 'ASC')
+    {
         $em = $this->getEntityManager();
 
         $query = $em->createQuery('
@@ -20,11 +21,13 @@ class RecipeRepository extends EntityRepository
         return $query;
     }
 
-    public function findAllRecipe(){
+    public function findAllRecipe()
+    {
         return $this->queryAllRecipe()->getArrayResult();
     }
 
-    public function findRecipeById($id = 0){
+    public function findRecipeById($id = 0)
+    {
         $em = $this->getEntityManager();
 
         $query = $em->createQuery('
@@ -36,10 +39,11 @@ class RecipeRepository extends EntityRepository
         $query->setParameter('id',$id);
         $query->useResultCache(true, 3600);
 
-        $query->getSingleResult();
+        return $query->getSingleResult();
     }
 
-    public function findRecipeBySlug($slug = ""){
+    public function findRecipeBySlug($slug = "")
+    {
         $em = $this->getEntityManager();
 
         $query = $em->createQuery('
@@ -51,8 +55,7 @@ class RecipeRepository extends EntityRepository
         $query->setParameter('slug',$slug);
         $query->useResultCache(true, 3600);
 
-        $query->getSingleResult();
+        return $query->getSingleResult();
     }
-
 
 }
