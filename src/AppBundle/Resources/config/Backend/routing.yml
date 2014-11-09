@@ -1,0 +1,7 @@
+backend_home:
+    path:     /
+    defaults: { _controller: AppBundle:BackendController/Default:index }
+
+backend_category:
+    resource: "@AppBundle/Resources/config/Backend/Category/routing.yml"
+    prefix:   /category

@@ -1,0 +1,6 @@
+{% for category in categories %}
+    <p  id="cat" data-url="{{ path('backend_category_show',{'id':category.id}) }}"> <strong>- {{ category }}</strong></p>
+    {%  for child in category.children %}
+        <p> - - {{ child }}</p>
+    {% endfor %}
+{% endfor %}

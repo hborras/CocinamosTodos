@@ -1,12 +1,33 @@
 security:
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+                    algorithm:  sha512
+                    iterations: 1
+                    encode_as_base64: true
+
     providers:
         in_memory:
             memory: ~
+ # Usuarios del backend
+        admin:
+            memory:
+                users:
+                    # Eti36Ru/pWG6WfoIPiDFUBxUuyvgMA4L8+LLuGbGyqV9ATuT9brCWPchBqX5vFTF+DgntacecW+sSGD+GZts2A==
+                    admin: { password: 5KGZB1LmpmkiYWUM7mmdWovexkFm2Y6oUa5U7ztAWYJacSq1PCVlMLcsdtl2fUT8LNmS517046T+nC2HHkKHpA==, roles: ROLE_ADMIN }
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+# Firewall de la parte de administración o backend
+        backend:
+            pattern:        ^/backend
+            provider:       admin
+            provider:       admin
+            http_basic:     ~
         default:
             anonymous: ~
+
+    access_control:
+            - { path: ^/backend/*,         roles: ROLE_ADMIN }
