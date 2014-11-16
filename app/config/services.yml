@@ -1,0 +1,3 @@
+services:
+    slugger:
+        class: AppBundle\Utils\Slugger

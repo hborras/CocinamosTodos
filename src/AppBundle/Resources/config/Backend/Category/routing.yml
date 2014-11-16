@@ -5,3 +5,11 @@ backend_category_index:
 backend_category_show:
     path:     /{id}/show
     defaults: { _controller: AppBundle:BackendController/Category:show }
+
+backend_category_new:
+    path:     /new
+    defaults: { _controller: AppBundle:BackendController/Category:new }
+
+backend_category_create:
+    path:     /create
+    defaults: { _controller: AppBundle:BackendController/Category:create }

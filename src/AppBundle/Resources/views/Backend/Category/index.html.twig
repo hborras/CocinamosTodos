@@ -1,6 +1,61 @@
-{% for category in categories %}
-    <p  id="cat" data-url="{{ path('backend_category_show',{'id':category.id}) }}"> <strong>- {{ category }}</strong></p>
-    {%  for child in category.children %}
-        <p> - - {{ child }}</p>
-    {% endfor %}
-{% endfor %}
+<h2 class="sub-header">Categories List</h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-5">
+                <b>Name</b>
+            </div>
+            <div class="col-md-4">
+                <b>Parent Category</b>
+            </div>
+            <div class="col-md-1">
+                <b>Order</b>
+            </div>
+            <div class="col-md-2">
+                <b>Options</b>
+            </div>
+        </div>
+        {% set count = 0 %}
+        {% for category in categories %}
+        {% if count % 2 == 0 %}
+        <div id ="categoria_{{category.id}}" class="row pair">
+            {% else %}
+            <div id ="categoria_{{category.id}}" class="row odd">
+                {% endif %}
+                <div class="col-md-5">
+                    <p class="ajax-url" data-url="{{path('backend_category_show',{'id':category.id})}}">{{ category }}</p>
+                </div>
+                <div class="col-md-4">
+                    {% if category.parent is null%}
+                        <p>Root</p>
+                    {% else %}
+                        <p class="ajax-url" data-url="{{path('backend_category_show',{'id':category.parent.id})}}">{{category.parent}}</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-1" style="text-align:center;">
+                    {{ category.order }}
+                </div>
+                <div class="col-md-2">
+                                <span class="btn dropdown-toggle btn-info col-md-12" data-toggle="dropdown" >
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                    <span class="icon-cog icon-white"></span><span class="caret"></span>
+                                </span>
+                    <ul class="dropdown-menu col-md-10">
+                        <li>
+                            <p class="ajax-url" data-url="{{ path('backend_category_show', { 'id': category.id }) }}">Details</p>
+                        </li>
+                        <li>
+                            {#<a href="{{ path('backend_categoria_edit', { 'id': category.id }) }}">Modificar</a>#}
+                        </li>
+                        <li>
+                            <a class="eliminar" id="{{category.id}}" href="#" >
+                                Borrar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% set count = count + 1 %}
+            {% endfor %}
+        </div>
+    </div>

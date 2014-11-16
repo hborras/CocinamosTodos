@@ -21,6 +21,7 @@ class BaseParentRecipe extends BaseSlug
 
     public function __construct()
     {
+        parent::__construct();
         $this->recipes  = new ArrayCollection();
     }
 

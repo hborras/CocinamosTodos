@@ -15,6 +15,7 @@
    <!-- <script src="{{ asset('plugins/jquery-ui/jquery-ui-1.10.4.custom.min.js') }}" type="text/javascript"></script>-->
     <script src="{{ asset('plugins/lightbox/js/lightbox-2.6.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/Backend/js/test.js') }}"></script>
 {% endblock %}
 {% block body %}
     <div id="header">
@@ -24,14 +25,14 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" id="cat" data-url = "{{ path('backend_category_index') }}">Category</button>
+                    <button type="button" class="btn btn-default ajax-url"  data-url = "{{ path('backend_category_index') }}">Category</button>
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">List</a></li>
-                        <li><a href="#">New</a></li>
+                        <li><p class="ajax-url" data-url = "{{ path('backend_category_index') }}">List</p></li>
+                        <li><p class="ajax-url" data-url = "{{ path('backend_category_new') }}">New</p></li>
                     </ul>
                 </div>
             </ul>
@@ -44,6 +45,6 @@
         </div>
     </div>
 
-    <script src="{{ asset('bundles/app/Backend/js/test.js') }}"></script>
+
 
 {% endblock %}

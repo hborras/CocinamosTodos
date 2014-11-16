@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks()
  */
 
-abstract class Base
+class Base
 {
     /**
      * @ORM\Id
@@ -34,6 +34,12 @@ abstract class Base
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     protected $updatedAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
 
     /**
      * Get id

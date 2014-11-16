@@ -5,3 +5,7 @@ frontend:
 backend:
      resource: "@AppBundle/Resources/config/Backend/routing.yml"
      prefix:   /backend
+
+slugger:
+    path:     /slugger/{string}
+    defaults: { _controller: AppBundle:Utils:slugger }

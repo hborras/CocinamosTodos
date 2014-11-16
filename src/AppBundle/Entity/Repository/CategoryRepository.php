@@ -3,8 +3,9 @@
 namespace AppBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use AppBundle\Entity\Repository\Interfaces\CategoryRepositoryInterface;
 
-class CategoryRepository extends EntityRepository
+class CategoryRepository extends EntityRepository implements CategoryRepositoryInterface
 {
     public function queryAllCategory($root = false)
     {
@@ -28,4 +29,25 @@ class CategoryRepository extends EntityRepository
         return $this->queryAllCategory($root)->getResult();
     }
 
+    /**
+     * Function to get all categories in FrontEnd
+     *
+     * @param $root
+     * @return mixed
+     */
+    public function queryVisibleCategory($root)
+    {
+        // TODO: Implement queryVisibleCategory() method.
+    }
+
+    /**
+     * Function to get all categories in FrontEnd
+     *
+     * @param $root
+     * @return mixed
+     */
+    public function findVisibleCategory($root)
+    {
+        // TODO: Implement findVisibleCategory() method.
+    }
 }

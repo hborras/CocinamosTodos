@@ -2,9 +2,12 @@
 
 namespace AppBundle\Controller\BackendController;
 
+use AppBundle\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Entity\Category;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
@@ -13,9 +16,9 @@ class CategoryController extends Controller
      *
      * @param boolean $root
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function indexAction($root = true)
+    public function indexAction($root = false)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -26,13 +29,12 @@ class CategoryController extends Controller
         ));
     }
 
-
     /**
      * Show a category and its recipes
      *
-     * @param \AppBundle\Entity\Category $category
+     * @param Category $category
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @ParamConverter("category", class="AppBundle:Category")
      */
@@ -40,6 +42,54 @@ class CategoryController extends Controller
     {
         return $this->render('AppBundle:Backend/Category:show.html.twig', array(
             'category' => $category
+        ));
+    }
+
+    /**
+     * Displays a form to create a new Category entity.
+     *
+     * @return Response
+     *
+     */
+    public function newAction()
+    {
+        $entity = new Category();
+        $form   = $this->createForm(new CategoryType(), $entity, array(
+            'action' => $this->generateUrl('backend_category_create')
+        ));
+
+        return $this->render('AppBundle:Backend\Category:new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView()
+        ));
+    }
+
+    /**
+     * Creates a new Category entity.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function createAction(Request $request)
+    {
+        $entity  = new Category();
+        $form    = $this->createForm(new CategoryType(), $entity);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+            return $this->render('AppBundle:Backend/Category:show.html.twig', array(
+                'category' => $entity
+            ));
+        }
+
+        return $this->render('AppBundle:Backend/Category:new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView()
         ));
     }
 }

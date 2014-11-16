@@ -11,7 +11,7 @@ namespace AppBundle\Entity\Base;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-abstract class BaseSlug extends Base
+class BaseSlug extends Base
 {
     /**
      * @ORM\Column(name="slug",type="string")

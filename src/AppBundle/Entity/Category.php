@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Base\BaseParentRecipe;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="category")
@@ -16,32 +17,43 @@ class Category extends BaseParentRecipe
     /**
      * @var string $name
      *
-     * @ORM\Column(name="name",type="string",nullable=true)
+     * @ORM\Column(name="name",type="string",nullable=false)
      */
     protected $name;
 
     /**
      * @var integer $order
      *
-     * @ORM\Column(name="order",type="integer",nullable=false)
+     * @ORM\Column(name="cat_order",type="integer",nullable=false)
      */
     protected $order;
 
     /**
+     * @var boolean $visible
+     *
+     * @ORM\Column(name="visible",type="boolean",nullable=false)
+     *
+     * @Assert\Type(type="bool")
+     */
+    protected $visible;
+
+    /**
      * @ORM\OneToMany(targetEntity="category", mappedBy="parent")
      **/
-    private $children;
+    protected $children;
 
     /**
      * @ORM\ManyToOne(targetEntity="category", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      **/
-    private $parent;
+    protected $parent;
 
     public function __construct()
     {
         parent::__construct();
         $this->children = new ArrayCollection();
+        $this->visible  = true;
+        $this->order    = 0;
     }
 
     public function __toString()
@@ -93,6 +105,29 @@ class Category extends BaseParentRecipe
     public function getOrder()
     {
         return $this->order;
+    }
+
+    /**
+     * Set visible
+     *
+     * @param boolean
+     * @return Category
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean
+     */
+    public function isVisible()
+    {
+        return $this->visible;
     }
 
     /**

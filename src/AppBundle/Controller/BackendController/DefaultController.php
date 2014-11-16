@@ -14,7 +14,6 @@ class DefaultController extends Controller
         return $this->render('::backend.html.twig');
     }
 
-
     /**
      * Show a category and its recipes
      *

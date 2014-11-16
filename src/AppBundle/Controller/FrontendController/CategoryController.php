@@ -26,7 +26,6 @@ class CategoryController extends Controller
         ));
     }
 
-
     /**
      * Show a category and its recipes
      *
