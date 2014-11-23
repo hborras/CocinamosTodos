@@ -13,3 +13,15 @@ backend_category_new:
 backend_category_create:
     path:     /create
     defaults: { _controller: AppBundle:BackendController/Category:create }
+
+backend_category_edit:
+    path:     /{id}/edit
+    defaults: { _controller: AppBundle:BackendController/Category:edit }
+
+backend_category_update:
+    path:     /{id}/update
+    defaults: { _controller: AppBundle:BackendController/Category:update }
+
+backend_category_delete:
+    path:     /{id}/delete
+    defaults: { _controller: AppBundle:BackendController/Category:delete }

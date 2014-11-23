@@ -2,7 +2,7 @@
 {% block article %}
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h1>New Category</h1>
+        <h1>Edit Category</h1>
     </div>
     <div class="panel-body">
         {{ form_start(form) }}
@@ -49,7 +49,7 @@
                         { 'attr':
                             {
                                 'class' : 'btn btn-lg btn-warning col-md-10 pull-right ajax-post',
-                                'data-url':  path('backend_category_create')
+                                'data-url':  path('backend_category_update',{'id': entity.id})
                             }
                         }) }}
                 </div>
@@ -60,3 +60,5 @@
     </div>
 </div>
 {% endblock %}
+
+

@@ -1,8 +1,10 @@
+{% extends app.request.isxmlhttprequest ? "::article.html.twig" : "::backend.html.twig" %}
+{% block article %}
 <h2 class="sub-header">Categories List</h2>
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <b>Name</b>
             </div>
             <div class="col-md-4">
@@ -10,6 +12,9 @@
             </div>
             <div class="col-md-1">
                 <b>Order</b>
+            </div>
+            <div class="col-md-1">
+                <b>Visible</b>
             </div>
             <div class="col-md-2">
                 <b>Options</b>
@@ -22,18 +27,21 @@
             {% else %}
             <div id ="categoria_{{category.id}}" class="row odd">
                 {% endif %}
-                <div class="col-md-5">
-                    <p class="ajax-url" data-url="{{path('backend_category_show',{'id':category.id})}}">{{ category }}</p>
+                <div class="col-md-4">
+                    <a class="ajax-url" data-url="{{path('backend_category_show',{'id':category.id})}}">{{ category }}</a>
                 </div>
                 <div class="col-md-4">
                     {% if category.parent is null%}
                         <p>Root</p>
                     {% else %}
-                        <p class="ajax-url" data-url="{{path('backend_category_show',{'id':category.parent.id})}}">{{category.parent}}</p>
+                        <a class="ajax-url" data-url="{{path('backend_category_show',{'id':category.parent.id})}}">{{category.parent}}</a>
                     {% endif %}
                 </div>
                 <div class="col-md-1" style="text-align:center;">
                     {{ category.order }}
+                </div>
+                <div class="col-md-1">
+                    {{ category.visible  }}
                 </div>
                 <div class="col-md-2">
                                 <span class="btn dropdown-toggle btn-info col-md-12" data-toggle="dropdown" >
@@ -42,13 +50,13 @@
                                 </span>
                     <ul class="dropdown-menu col-md-10">
                         <li>
-                            <p class="ajax-url" data-url="{{ path('backend_category_show', { 'id': category.id }) }}">Details</p>
+                            <a class="ajax-url" data-url="{{ path('backend_category_show', { 'id': category.id }) }}">Details</a>
                         </li>
                         <li>
-                            {#<a href="{{ path('backend_categoria_edit', { 'id': category.id }) }}">Modificar</a>#}
+                            <a class="ajax-url" data-url="{{ path('backend_category_edit', { 'id': category.id }) }}">Modify</a>
                         </li>
                         <li>
-                            <a class="eliminar" id="{{category.id}}" href="#" >
+                            <a class="eliminar" id="{{category.id}}">
                                 Borrar
                             </a>
                         </li>
@@ -59,3 +67,4 @@
             {% endfor %}
         </div>
     </div>
+{% endblock %}

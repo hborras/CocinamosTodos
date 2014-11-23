@@ -1,1 +1,71 @@
-<p> - - {{ category }}</p>
+{% extends app.request.isxmlhttprequest ? "::article.html.twig" : "::backend.html.twig" %}
+{% block article %}
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h2 class="sub-header">Category Data</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Id</strong>
+            </div>
+            <div class="col-md-4">
+                {{entity.id}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Name</strong>
+            </div>
+            <div class="col-md-4">
+                {{entity.name}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Slug</strong>
+            </div>
+            <div class="col-md-4">
+                {{entity.slug}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Parent Category</strong>
+            </div>
+            <div class="col-md-4">
+                {% if entity.parent is null %}
+                    <p>Root</p>
+                {% else %}
+                    <a class="ajax-url" data-url="{{path('backend_category_show',{'id':entity.parent.id})}}">{{entity.parent}}</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Order</strong>
+            </div>
+            <div class="col-md-4">
+                {{entity.order}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <a class="col-md-10 btn btn-lg btn-success ajax-url " data-url="{{ path('backend_category_index') }}">
+            Back
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a class="col-md-10 btn btn-lg btn-info ajax-url" data-url="{{ path('backend_category_edit', { 'id': entity.id }) }}">
+            Modify Category
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a class="col-md-10 btn btn-lg btn-danger ajax-url" id="eliminar" data-message="¿Estás seguro de eliminar esta categoria?" data-url="{{ url('backend_category_delete', { 'id': entity.id }) }}" >
+            Delete Category
+        </a>
+    </div>
+</div>
+{% endblock %}

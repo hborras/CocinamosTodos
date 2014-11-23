@@ -26,7 +26,7 @@ class CategoryType extends AbstractType
                 'required'=>false,
             ))
             ->add('visible', null, array('required' => false))
-            ->add('save','submit',array('label' => 'Add Category'));
+            ->add('save','submit',array('label' => 'Save Changes'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

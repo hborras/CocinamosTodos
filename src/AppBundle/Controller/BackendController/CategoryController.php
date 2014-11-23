@@ -41,7 +41,7 @@ class CategoryController extends Controller
     public function showAction(Category $category)
     {
         return $this->render('AppBundle:Backend/Category:show.html.twig', array(
-            'category' => $category
+            'entity' => $category
         ));
     }
 
@@ -53,13 +53,13 @@ class CategoryController extends Controller
      */
     public function newAction()
     {
-        $entity = new Category();
-        $form   = $this->createForm(new CategoryType(), $entity, array(
+        $category = new Category();
+        $form   = $this->createForm(new CategoryType(), $category, array(
             'action' => $this->generateUrl('backend_category_create')
         ));
 
         return $this->render('AppBundle:Backend\Category:new.html.twig', array(
-            'entity' => $entity,
+            'entity' => $category,
             'form'   => $form->createView()
         ));
     }
@@ -73,23 +73,108 @@ class CategoryController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity  = new Category();
-        $form    = $this->createForm(new CategoryType(), $entity);
+        $category  = new Category();
+        $form    = $this->createForm(new CategoryType(), $category);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($category);
             $em->flush();
             return $this->render('AppBundle:Backend/Category:show.html.twig', array(
-                'category' => $entity
+                'entity' => $category
             ));
         }
 
         return $this->render('AppBundle:Backend/Category:new.html.twig', array(
-            'entity' => $entity,
+            'entity' => $category,
             'form'   => $form->createView()
         ));
+    }
+
+    /**
+     * Displays a form to modify a Category entity.
+     *
+     * @param Category $category
+     *
+     * @return Response
+     *
+     * @ParamConverter("category", class="AppBundle:Category")
+     */
+    public function editAction(Category $category){
+        if (!$category) {
+            throw $this->createNotFoundException("Error, We haven't founded this category");
+        }
+
+        $form = $this->createForm(new CategoryType(), $category,
+            array(
+                'action' => $this->generateUrl('backend_category_update',
+                                            array(
+                                                    'id' => $category->getId()
+                                                )
+                                            )
+        ));
+
+        return $this->render('AppBundle:Backend/Category:edit.html.twig', array(
+            'entity'      => $category,
+            'form'   => $form->createView()
+        ));
+    }
+
+    /**
+     * Modifies a Category
+     *
+     * @param Category $category
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @ParamConverter("category", class="AppBundle:Category")
+     */
+    public function updateAction(Category $category,Request $request)
+    {
+        if (!$category) {
+            throw $this->createNotFoundException("Error, We haven't founded this category");
+        }
+        $form   = $this->createForm(new CategoryType(), $category);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+            return $this->render('AppBundle:Backend/Category:show.html.twig', array(
+                'entity' => $category
+            ));
+        }
+
+        return $this->render('AppBundle:Backend/Category:edit.html.twig', array(
+            'entity'      => $category,
+            'form'   => $form->createView(),
+        ));
+    }
+
+    /**
+     * Removes a Category
+     *
+     * @param Category $category
+     *
+     * @return Response
+     *
+     * @ParamConverter("category", class="AppBundle:Category")
+     */
+    public function deleteAction(Category $category){
+        $em = $this->getDoctrine()->getManager();
+
+        if (!$category) {
+            throw $this->createNotFoundException('No se ha encontrado la categoria solicitada');
+        }
+
+        $em->remove($category);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('backend_categoria'));
     }
 }
