@@ -1,0 +1,81 @@
+{% extends app.request.isxmlhttprequest ? "::article.html.twig" : "::backend.html.twig" %}
+{% block article %}
+<h2 class="sub-header">Categories List</h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                <b>Title</b>
+            </div>
+            <div class="col-md-3">
+                <b>Category</b>
+            </div>
+            <div class="col-md-1">
+                <b>Quantity of People</b>
+            </div>
+            <div class="col-md-1">
+                <b>Calories</b>
+            </div>
+            <div class="col-md-1">
+                <b>Vegan</b>
+            </div>
+            <div class="col-md-1">
+                <b>Visible</b>
+            </div>
+            <div class="col-md-2">
+                <b>Options</b>
+            </div>
+        </div>
+        {% set count = 0 %}
+        {% for recipe in recipes %}
+        {% if count % 2 == 0 %}
+        <div id ="recipe_{{recipe.id}}" class="row pair">
+            {% else %}
+            <div id ="recipe_{{recipe.id}}" class="row odd">
+                {% endif %}
+                <div class="col-md-3">
+                    <a class="ajax-url" data-url="{{path('backend_recipe_show',{'id':recipe.id})}}">{{ recipe }}</a>
+                </div>
+                <div class="col-md-3">
+                    <a class="ajax-url" data-url="{{path('backend_category_show',{'id':recipe.category.id})}}">{{recipe.category}}</a>
+                </div>
+                <div class="col-md-1">
+                    {{ recipe.quantityOfPeople }}
+                </div>
+                <div class="col-md-1">
+                    {{ recipe.calories }}
+                </div>
+                <div class="col-md-1" style="text-align:center;">
+                    <span class="glyphicon glyphicon-{{ recipe.vegan ? "ok" : "remove" }}"></span>
+                </div>
+                <div class="col-md-1">
+                   <span class="glyphicon glyphicon-{{ recipe.visible ? "ok" : "remove" }}"></span>
+                </div>
+                <div class="col-md-2">
+                                <span class="btn dropdown-toggle btn-info col-md-12" data-toggle="dropdown" >
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                    <span class="icon-cog icon-white"></span><span class="caret"></span>
+                                </span>
+                    <ul class="dropdown-menu col-md-10">
+                        <li>
+                            <a class="ajax-url" data-url="{{ path('backend_recipe_show', { 'id': recipe.id }) }}">Details</a>
+                        </li>
+                        <li>
+                            <a class="ajax-url" data-url="{{ path('backend_recipe_edit', { 'id': recipe.id }) }}">Modify</a>
+                        </li>
+                        <li>
+                            <a class="remove-dialog" data-url="{{ path('backend_recipe_delete', { 'id': recipe.id }) }}"
+                                                     data-title="Remove Category"
+                                                     data-text="¿Do you want to remove this recipe?"
+                                                     data-id="{{ recipe.id }}">
+                                Remove
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% set count = count + 1 %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

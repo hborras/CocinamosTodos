@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="recipe")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\RecipeRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\RecipeRepository")
  */
 
 class Recipe extends BaseSlug
@@ -131,6 +131,11 @@ class Recipe extends BaseSlug
         $this->pictures    = new ArrayCollection();
         $this->comments    = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 
     /**

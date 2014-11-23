@@ -5,3 +5,7 @@ backend_home:
 backend_category:
     resource: "@AppBundle/Resources/config/Backend/Category/routing.yml"
     prefix:   /category
+
+backend_recipe:
+    resource: "@AppBundle/Resources/config/Backend/Recipe/routing.yml"
+    prefix:   /recipe

@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 
 class RecipeRepository extends EntityRepository
 {
-    public function queryAllRecipe($orderBy = 'r.created_at',$sort = 'ASC')
+    public function queryAllRecipe($orderBy = 'r.createdAt',$sort = 'ASC')
     {
         $em = $this->getEntityManager();
 
@@ -23,7 +23,7 @@ class RecipeRepository extends EntityRepository
 
     public function findAllRecipe()
     {
-        return $this->queryAllRecipe()->getArrayResult();
+        return $this->queryAllRecipe()->getResult();
     }
 
     public function findRecipeById($id = 0)
