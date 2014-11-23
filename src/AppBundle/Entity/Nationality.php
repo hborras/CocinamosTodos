@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Base\BaseParentRecipe;
+use AppBundle\Entity\Base\BaseSlug;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  */
 
-class Nationality extends BaseParentRecipe
+class Nationality extends BaseSlug
 {
     /**
      * @var string $name
@@ -25,6 +25,11 @@ class Nationality extends BaseParentRecipe
      * @ORM\Column(name="path",type="string",nullable=true)
      */
     protected $path;
+
+    /**
+     * @ORM\OneToMany (targetEntity="AppBundle\Entity\Recipe", mappedBy="nationality", cascade={"all"})
+     */
+    protected $recipes;
 
     /**
      * @return string
@@ -63,5 +68,44 @@ class Nationality extends BaseParentRecipe
     public function getName()
     {
         return $this->name;
+    }
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->recipes  = new ArrayCollection();
+    }
+
+    /**
+     * Add recipe
+     *
+     * @param  \AppBundle\Entity\Recipe $recipe
+     * @return Recipe
+     */
+    public function addRecipe(Recipe $recipe)
+    {
+        $this->recipes[] = $recipe;
+
+        return $this;
+    }
+
+    /**
+     * Remove recipe
+     *
+     * @param \AppBundle\Entity\Recipe $recipe
+     */
+    public function removeRecipe(Recipe $recipe)
+    {
+        $this->recipes->removeElement($recipe);
+    }
+
+    /**
+     * Get recipes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecipes()
+    {
+        return $this->recipes;
     }
 }

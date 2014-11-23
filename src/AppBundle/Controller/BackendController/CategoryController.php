@@ -82,6 +82,7 @@ class CategoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
+
             return $this->render('AppBundle:Backend/Category:show.html.twig', array(
                 'entity' => $category
             ));
@@ -102,7 +103,8 @@ class CategoryController extends Controller
      *
      * @ParamConverter("category", class="AppBundle:Category")
      */
-    public function editAction(Category $category){
+    public function editAction(Category $category)
+    {
         if (!$category) {
             throw $this->createNotFoundException("Error, We haven't founded this category");
         }
@@ -126,7 +128,7 @@ class CategoryController extends Controller
      * Modifies a Category
      *
      * @param Category $category
-     * @param Request $request
+     * @param Request  $request
      *
      * @return Response
      *
@@ -145,6 +147,7 @@ class CategoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
+
             return $this->render('AppBundle:Backend/Category:show.html.twig', array(
                 'entity' => $category
             ));
@@ -160,12 +163,14 @@ class CategoryController extends Controller
      * Removes a Category
      *
      * @param Category $category
+     * @param Request  $request
      *
      * @return Response
      *
      * @ParamConverter("category", class="AppBundle:Category")
      */
-    public function deleteAction(Category $category){
+    public function deleteAction(Category $category, Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
 
         if (!$category) {
@@ -174,7 +179,12 @@ class CategoryController extends Controller
 
         $em->remove($category);
         $em->flush();
+        if ($request->isXmlHttpRequest()) {
+            $return = json_encode(array("result" => "OK"));
 
-        return $this->redirect($this->generateUrl('backend_categoria'));
+            return new Response($return,200, array('Content-Type' => 'application/json'));
+        } else {
+            return $this->redirect($this->generateUrl('backend_category_index'));
+        }
     }
 }

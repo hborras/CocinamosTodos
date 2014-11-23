@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class BaseParentRecipe extends BaseSlug
 {
     /**
-     * @ORM\OneToMany (targetEntity="AppBundle\Entity\Recipe", mappedBy="recipe", cascade={"all"})
+     * @ORM\OneToMany (targetEntity="AppBundle\Entity\Recipe", mappedBy="category", cascade={"all"})
      */
     protected $recipes;
 

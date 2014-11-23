@@ -4,11 +4,14 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <b>Name</b>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <b>Parent Category</b>
+            </div>
+            <div class="col-md-2">
+                <b>Quantity</b>
             </div>
             <div class="col-md-1">
                 <b>Order</b>
@@ -23,25 +26,28 @@
         {% set count = 0 %}
         {% for category in categories %}
         {% if count % 2 == 0 %}
-        <div id ="categoria_{{category.id}}" class="row pair">
+        <div id ="category_{{category.id}}" class="row pair">
             {% else %}
-            <div id ="categoria_{{category.id}}" class="row odd">
+            <div id ="category_{{category.id}}" class="row odd">
                 {% endif %}
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <a class="ajax-url" data-url="{{path('backend_category_show',{'id':category.id})}}">{{ category }}</a>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     {% if category.parent is null%}
                         <p>Root</p>
                     {% else %}
                         <a class="ajax-url" data-url="{{path('backend_category_show',{'id':category.parent.id})}}">{{category.parent}}</a>
                     {% endif %}
                 </div>
+                <div class="col-md-2">
+                    {{ category.recipes | length }}
+                </div>
                 <div class="col-md-1" style="text-align:center;">
                     {{ category.order }}
                 </div>
                 <div class="col-md-1">
-                    {{ category.visible  }}
+                   <span class="glyphicon glyphicon-{{ category.visible ? "ok" : "remove" }}"></span>
                 </div>
                 <div class="col-md-2">
                                 <span class="btn dropdown-toggle btn-info col-md-12" data-toggle="dropdown" >
@@ -56,8 +62,11 @@
                             <a class="ajax-url" data-url="{{ path('backend_category_edit', { 'id': category.id }) }}">Modify</a>
                         </li>
                         <li>
-                            <a class="eliminar" id="{{category.id}}">
-                                Borrar
+                            <a class="remove-dialog" data-url="{{ path('backend_category_delete', { 'id': category.id }) }}"
+                                                     data-title="Remove Category"
+                                                     data-text="¿Do you want to remove this category?"
+                                                     data-id="{{ category.id }}">
+                                Remove
                             </a>
                         </li>
                     </ul>

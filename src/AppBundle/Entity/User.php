@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Base\BaseParentRecipe;
+use AppBundle\Entity\Base\BaseSlug;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as Unique;
@@ -17,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @Unique\UniqueEntity(fields="email", message="Ese correo electrónico ya está en uso. Selecciona otro", groups={"register"})
  * @Unique\UniqueEntity(fields="username", message="Ese usuario ya está en uso. Selecciona otro", groups={"register"})
  */
-class User extends BaseParentRecipe implements AdvancedUserInterface
+class User extends BaseSlug implements AdvancedUserInterface
 {
     /**
      * @var string $username
@@ -155,6 +155,11 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
      */
     protected $expiresAt;
 
+    /**
+     * @ORM\OneToMany (targetEntity="AppBundle\Entity\Recipe", mappedBy="user", cascade={"all"})
+     */
+    protected $recipes;
+
     public function __construct()
     {
         parent::__construct();
@@ -163,6 +168,7 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
         $this->expired    = false;
         $this->newsletter = false;
         $this->favorites  = new ArrayCollection();
+        $this->recipes    = new ArrayCollection();
     }
 
     public function eraseCredentials()
@@ -591,6 +597,39 @@ class User extends BaseParentRecipe implements AdvancedUserInterface
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Add recipe
+     *
+     * @param  \AppBundle\Entity\Recipe $recipe
+     * @return Recipe
+     */
+    public function addRecipe(Recipe $recipe)
+    {
+        $this->recipes[] = $recipe;
+
+        return $this;
+    }
+
+    /**
+     * Remove recipe
+     *
+     * @param \AppBundle\Entity\Recipe $recipe
+     */
+    public function removeRecipe(Recipe $recipe)
+    {
+        $this->recipes->removeElement($recipe);
+    }
+
+    /**
+     * Get recipes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecipes()
+    {
+        return $this->recipes;
     }
 
 }

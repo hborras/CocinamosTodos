@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Base\BaseParentRecipe;
+use AppBundle\Entity\Base\BaseSlug;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\CategoryRepository")
  */
 
-class Category extends BaseParentRecipe
+class Category extends BaseSlug
 {
     /**
      * @var string $name
@@ -38,6 +38,11 @@ class Category extends BaseParentRecipe
     protected $visible;
 
     /**
+     * @ORM\OneToMany (targetEntity="AppBundle\Entity\Recipe", mappedBy="category", cascade={"all"})
+     */
+    protected $recipes;
+
+    /**
      * @ORM\OneToMany(targetEntity="category", mappedBy="parent")
      **/
     protected $children;
@@ -52,6 +57,7 @@ class Category extends BaseParentRecipe
     {
         parent::__construct();
         $this->children = new ArrayCollection();
+        $this->recipes  = new ArrayCollection();
         $this->visible  = true;
         $this->order    = 0;
     }
@@ -184,5 +190,38 @@ class Category extends BaseParentRecipe
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Add recipe
+     *
+     * @param  \AppBundle\Entity\Recipe $recipe
+     * @return Recipe
+     */
+    public function addRecipe(Recipe $recipe)
+    {
+        $this->recipes[] = $recipe;
+
+        return $this;
+    }
+
+    /**
+     * Remove recipe
+     *
+     * @param \AppBundle\Entity\Recipe $recipe
+     */
+    public function removeRecipe(Recipe $recipe)
+    {
+        $this->recipes->removeElement($recipe);
+    }
+
+    /**
+     * Get recipes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecipes()
+    {
+        return $this->recipes;
     }
 }

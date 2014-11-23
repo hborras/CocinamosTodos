@@ -2,6 +2,10 @@ body {
     padding-bottom: 70px;
 }
 
+a{
+    cursor:pointer;
+}
+
 #header {
     background-color: #D24945;
     padding-top: 15px;
@@ -589,4 +593,10 @@ ol{
     margin-top: auto;
     margin-bottom: auto;
     float: none !important;
+}
+
+.replace-container{
+    box-shadow: 1px 4px 10px 6px #817B7B;
+    padding: 10px;
+    margin-top: 10px;
 }
