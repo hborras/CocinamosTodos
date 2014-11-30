@@ -2,16 +2,16 @@
 {% block article %}
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h1>Edit Category</h1>
+        <h1>New Difficulty</h1>
     </div>
     <div class="panel-body">
         {{ form_start(form) }}
             {{ form_errors(form) }}
 
             <div class="row col-md-12">
-                {{ form_label(form.title, 'Title') }}
-                {{ form_errors(form.title) }}
-                {{ form_widget(form.title, { 'attr': { 'class': 'form-control name' , 'data-url':  path('slugger',{'string': ' '}) } }) }}
+                {{ form_label(form.name, 'Name') }}
+                {{ form_errors(form.name) }}
+                {{ form_widget(form.name, { 'attr': { 'class': 'form-control name' , 'data-url':  path('slugger',{'string': ' '}) } }) }}
             </div>
 
             <div class="row">
@@ -20,16 +20,11 @@
                     {{ form_errors(form.slug) }}
                     {{ form_widget(form.slug, { 'attr': { 'class': 'form-control slug' } }) }}
                 </div>
-                <div class="col-md-1">
-                    {{ form_label(form.visible, 'Visible') }}
-                    {{ form_errors(form.visible) }}
-                    {{ form_widget(form.visible, { 'attr': { 'class': 'form-control' } }) }}
-                </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6">
-                    <p class="col-md-10 btn btn-lg btn-success ajax-url" data-url="{{ path('backend_recipe_index') }}">Back</p>
+                    <p class="col-md-10 btn btn-lg btn-success ajax-url" data-url="{{ path('backend_difficulty_index') }}">Back</p>
                 </div>
                 <div class="col-md-6">
                     {{ form_widget(
@@ -37,7 +32,7 @@
                         { 'attr':
                             {
                                 'class' : 'btn btn-lg btn-warning col-md-10 pull-right ajax-post',
-                                'data-url':  path('backend_recipe_update',{'id': entity.id})
+                                'data-url':  path('backend_difficulty_create')
                             }
                         }) }}
                 </div>

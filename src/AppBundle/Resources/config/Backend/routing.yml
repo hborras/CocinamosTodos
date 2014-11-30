@@ -9,3 +9,11 @@ backend_category:
 backend_recipe:
     resource: "@AppBundle/Resources/config/Backend/Recipe/routing.yml"
     prefix:   /recipe
+
+backend_difficulty:
+    resource: "@AppBundle/Resources/config/Backend/Difficulty/routing.yml"
+    prefix:   /difficulty
+    
+backend_nationality:
+    resource: "@AppBundle/Resources/config/Backend/Nationality/routing.yml"
+    prefix:   /nationality

@@ -1,10 +1,10 @@
 backend_category_index:
-    path:     /
-    defaults: { _controller: AppBundle:BackendController/Category:index }
+    path:     /index.{format}
+    defaults: { _controller: AppBundle:BackendController/Category:index, format: html }
 
 backend_category_show:
-    path:     /{id}/show
-    defaults: { _controller: AppBundle:BackendController/Category:show }
+    path:     /{id}/show.{format}
+    defaults: { _controller: AppBundle:BackendController/Category:show, format: html }
 
 backend_category_new:
     path:     /new

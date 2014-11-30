@@ -4,12 +4,13 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Base\BaseSlug;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="difficulty")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\DifficultyRepository")
  */
 
 class Difficulty extends BaseSlug
@@ -53,6 +54,11 @@ class Difficulty extends BaseSlug
     {
         parent::__construct();
         $this->recipes  = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     /**

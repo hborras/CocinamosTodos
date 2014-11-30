@@ -15,15 +15,18 @@ class CategoryController extends Controller
      * Get all categories. If $root is enabled, It gets only root categories
      *
      * @param boolean $root
+     * @param string $format
      *
      * @return Response
      */
-    public function indexAction($root = false)
+    public function indexAction($root = false,$format)
     {
         $em = $this->getDoctrine()->getManager();
-
         $categories = $em->getRepository('AppBundle:Category')->findAllCategory($root);
-
+        if ($format == 'json'){
+            $serializer = $this->get('jms_serializer');
+            return new Response($serializer->serialize($categories, $format));
+        }
         return $this->render('AppBundle:Backend/Category:index.html.twig', array(
             'categories' => $categories
         ));
@@ -33,13 +36,18 @@ class CategoryController extends Controller
      * Show a category and its recipes
      *
      * @param Category $category
+     * @param string $format
      *
      * @return Response
      *
      * @ParamConverter("category", class="AppBundle:Category")
      */
-    public function showAction(Category $category)
+    public function showAction(Category $category, $format)
     {
+        if ($format == 'json'){
+            $serializer = $this->get('jms_serializer');
+            return new Response($serializer->serialize($category, $format));
+        }
         return $this->render('AppBundle:Backend/Category:show.html.twig', array(
             'entity' => $category
         ));

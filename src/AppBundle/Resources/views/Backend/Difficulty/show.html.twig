@@ -1,0 +1,52 @@
+{% extends app.request.isxmlhttprequest ? "::article.html.twig" : "::backend.html.twig" %}
+{% block article %}
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h2 class="sub-header">Difficulty Data</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Id</strong>
+            </div>
+            <div class="col-md-4">
+                {{entity.id}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Name</strong>
+            </div>
+            <div class="col-md-4">
+                {{entity.name}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Slug</strong>
+            </div>
+            <div class="col-md-4">
+                {{entity.slug}}
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <a class="col-md-10 btn btn-lg btn-success ajax-url " data-url="{{ path('backend_difficulty_index') }}">
+            Back
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a class="col-md-10 btn btn-lg btn-info ajax-url" data-url="{{ path('backend_difficulty_edit', { 'id': entity.id }) }}">
+            Modify Difficulty
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a class="col-md-10 btn btn-lg btn-danger ajax-url" id="eliminar" data-message="¿Estás seguro de eliminar esta categoria?" data-url="{{ url('backend_difficulty_delete', { 'id': entity.id }) }}" >
+            Delete Difficulty
+        </a>
+    </div>
+</div>
+{% endblock %}

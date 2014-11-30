@@ -3,14 +3,15 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Base\BaseSlug;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="nationality")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\NationalityRepository")
  */
 
-class Nationality extends BaseSlug
+class Nationality extends BaseSlug implements NationalityInterface
 {
     /**
      * @var string $name
@@ -31,28 +32,17 @@ class Nationality extends BaseSlug
      */
     protected $recipes;
 
-    /**
-     * @return string
-     */
     public function getPath()
     {
         return $this->path;
     }
 
-    /**
-     * @param string $path
-     */
     public function setPath($path)
     {
         $this->path = $path;
     }
 
-    /**
-     * Set name
-     *
-     * @param  string      $name
-     * @return Nationality
-     */
+
     public function setName($name)
     {
         $this->name = $name;
@@ -60,11 +50,6 @@ class Nationality extends BaseSlug
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
@@ -76,12 +61,12 @@ class Nationality extends BaseSlug
         $this->recipes  = new ArrayCollection();
     }
 
-    /**
-     * Add recipe
-     *
-     * @param  \AppBundle\Entity\Recipe $recipe
-     * @return Recipe
-     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+
     public function addRecipe(Recipe $recipe)
     {
         $this->recipes[] = $recipe;
@@ -89,23 +74,18 @@ class Nationality extends BaseSlug
         return $this;
     }
 
-    /**
-     * Remove recipe
-     *
-     * @param \AppBundle\Entity\Recipe $recipe
-     */
+
     public function removeRecipe(Recipe $recipe)
     {
         $this->recipes->removeElement($recipe);
     }
 
-    /**
-     * Get recipes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
     public function getRecipes()
     {
         return $this->recipes;
+    }
+
+    public function hasRecipe($name){
+        return in_array($name, $this->getRecipeNames());
     }
 }

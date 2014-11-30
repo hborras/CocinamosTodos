@@ -25,6 +25,15 @@ class RecipeType extends AbstractType
                 },
                 'required'=>false,
             ))
+            ->add('difficulty', 'entity', array(
+                'class'         => 'AppBundle\\Entity\\Difficulty',
+                'empty_value'   => '',
+                'query_builder' => function (EntityRepository $repository) {
+                    return $repository->createQueryBuilder('c')
+                        ->addOrderBy('c.name', 'ASC');
+                },
+                'required'=>false,
+            ))
             ->add('quantityOfPeople')
             ->add('vegan')
             ->add('calories')

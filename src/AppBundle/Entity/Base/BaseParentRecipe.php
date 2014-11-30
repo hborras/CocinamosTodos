@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\Recipe;
 use Doctrine\ORM\Mapping as ORM;
 
-class BaseParentRecipe extends BaseSlug
+abstract class BaseParentRecipe extends BaseSlug
 {
     /**
      * @ORM\OneToMany (targetEntity="AppBundle\Entity\Recipe", mappedBy="category", cascade={"all"})

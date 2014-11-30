@@ -15,10 +15,10 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <strong>Name</strong>
+                <strong>Title</strong>
             </div>
             <div class="col-md-4">
-                {{entity.name}}
+                {{entity.title}}
             </div>
         </div>
         <div class="row">
@@ -31,22 +31,42 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <strong>Parent Category</strong>
+                <strong>Description</strong>
             </div>
             <div class="col-md-4">
-                {% if entity.parent is null %}
-                    <p>Root</p>
-                {% else %}
-                    <a class="ajax-url" data-url="{{path('backend_category_show',{'id':entity.parent.id})}}">{{entity.parent}}</a>
-                {% endif %}
+                {{entity.description}}
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <strong>Order</strong>
+                <strong>Category</strong>
             </div>
             <div class="col-md-4">
-                {{entity.order}}
+                <a class="ajax-url" data-url="{{path('backend_category_show',{'id':entity.category.id})}}">{{entity.category}}</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Difficulty</strong>
+            </div>
+            <div class="col-md-4">
+                <a class="ajax-url" data-url="{{path('backend_difficulty_show',{'id':entity.difficulty.id})}}">{{entity.difficulty}}</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Quantity of People</strong>
+            </div>
+            <div class="col-md-4">
+                {{entity.quantity_of_people}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>calories</strong>
+            </div>
+            <div class="col-md-4">
+                {{entity.calories}}
             </div>
         </div>
     </div>

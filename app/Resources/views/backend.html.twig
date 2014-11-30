@@ -48,6 +48,28 @@
                         <li><a class="ajax-url" data-url = "{{ path('backend_recipe_new') }}">New</a></li>
                     </ul>
                 </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default ajax-url"  data-url = "{{ path('backend_difficulty_index') }}">Difficulty</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a class="ajax-url" data-url = "{{ path('backend_difficulty_index') }}">List</a></li>
+                        <li><a class="ajax-url" data-url = "{{ path('backend_difficulty_new') }}">New</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default ajax-url"  data-url = "{{ path('backend_nationality_index') }}">Nationality</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a class="ajax-url" data-url = "{{ path('backend_nationality_index') }}">List</a></li>
+                        <li><a class="ajax-url" data-url = "{{ path('backend_nationality_new') }}">New</a></li>
+                    </ul>
+                </div>
             </ul>
         </div>
     {#{% include ':includes:flashes.html.twig' %}#}

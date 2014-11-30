@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks()
  */
 
-class Base
+abstract class Base
 {
     /**
      * @ORM\Id

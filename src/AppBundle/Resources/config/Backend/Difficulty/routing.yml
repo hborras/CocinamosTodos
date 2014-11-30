@@ -1,0 +1,27 @@
+backend_difficulty_index:
+    path:     /index.{format}
+    defaults: { _controller: AppBundle:BackendController/Difficulty:index, format: html }
+
+backend_difficulty_show:
+    path:     /{id}/show.{format}
+    defaults: { _controller: AppBundle:BackendController/Difficulty:show, format: html }
+
+backend_difficulty_new:
+    path:     /new
+    defaults: { _controller: AppBundle:BackendController/Difficulty:new }
+
+backend_difficulty_create:
+    path:     /create
+    defaults: { _controller: AppBundle:BackendController/Difficulty:create }
+
+backend_difficulty_edit:
+    path:     /{id}/edit
+    defaults: { _controller: AppBundle:BackendController/Difficulty:edit }
+
+backend_difficulty_update:
+    path:     /{id}/update
+    defaults: { _controller: AppBundle:BackendController/Difficulty:update }
+
+backend_difficulty_delete:
+    path:     /{id}/delete
+    defaults: { _controller: AppBundle:BackendController/Difficulty:delete }

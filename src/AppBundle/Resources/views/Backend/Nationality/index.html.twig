@@ -1,0 +1,57 @@
+{% extends app.request.isxmlhttprequest ? "::article.html.twig" : "::backend.html.twig" %}
+{% block article %}
+<h2 class="sub-header">Nationality List</h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                <b>Name</b>
+            </div>
+            <div class="col-md-3">
+                <b>Flag</b>
+            </div>
+            <div class="col-md-2">
+                <b>Options</b>
+            </div>
+        </div>
+        {% set count = 0 %}
+        {% for nationality in nationalities %}
+        {% if count % 2 == 0 %}
+        <div id ="nationality_{{nationality.id}}" class="row pair">
+            {% else %}
+            <div id ="nationality_{{nationality.id}}" class="row odd">
+                {% endif %}
+                <div class="col-md-3">
+                    <a class="ajax-url" data-url="{{path('backend_nationality_show',{'id':nationality.id})}}">{{ nationality }}</a>
+                </div>
+                <div class="col-md-3">
+                    <img src="{{ asset('uploads/flags/' ~ nationality.path) }}"/>
+                </div>
+                <div class="col-md-2">
+                                <span class="btn dropdown-toggle btn-info col-md-12" data-toggle="dropdown" >
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                    <span class="icon-cog icon-white"></span><span class="caret"></span>
+                                </span>
+                    <ul class="dropdown-menu col-md-10">
+                        <li>
+                            <a class="ajax-url" data-url="{{ path('backend_nationality_show', { 'id': nationality.id }) }}">Details</a>
+                        </li>
+                        <li>
+                            <a class="ajax-url" data-url="{{ path('backend_nationality_edit', { 'id': nationality.id }) }}">Modify</a>
+                        </li>
+                        <li>
+                            <a class="remove-dialog" data-url="{{ path('backend_nationality_delete', { 'id': nationality.id }) }}"
+                                                     data-title="Remove Nationality"
+                                                     data-text="¿Do you want to remove this nationality?"
+                                                     data-id="#nationality_{{ nationality.id }}">
+                                Remove
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% set count = count + 1 %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

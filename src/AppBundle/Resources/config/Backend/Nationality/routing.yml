@@ -1,0 +1,27 @@
+backend_nationality_index:
+    path:     /index.{format}
+    defaults: { _controller: AppBundle:BackendController/Nationality:index, format: html }
+
+backend_nationality_show:
+    path:     /{id}/show.{format}
+    defaults: { _controller: AppBundle:BackendController/Nationality:show, format: html }
+
+backend_nationality_new:
+    path:     /new
+    defaults: { _controller: AppBundle:BackendController/Nationality:new }
+
+backend_nationality_create:
+    path:     /create
+    defaults: { _controller: AppBundle:BackendController/Nationality:create }
+
+backend_nationality_edit:
+    path:     /{id}/edit
+    defaults: { _controller: AppBundle:BackendController/Nationality:edit }
+
+backend_nationality_update:
+    path:     /{id}/update
+    defaults: { _controller: AppBundle:BackendController/Nationality:update }
+
+backend_nationality_delete:
+    path:     /{id}/delete
+    defaults: { _controller: AppBundle:BackendController/Nationality:delete }

@@ -1,3 +1,9 @@
 services:
     slugger:
         class: AppBundle\Utils\Slugger
+
+    app_bundle.manager.nationality:
+        class: AppBundle\Entity\NationalityManager
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+            class: AppBundle\Entity\Nationality

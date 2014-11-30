@@ -107,7 +107,7 @@ class Recipe extends BaseSlug
     protected $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\IngredientMeasurement", mappedBy="ingredient_measurament", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\IngredientMeasurement", mappedBy="recipe", cascade={"all"})
      */
     protected $ingredients;
 

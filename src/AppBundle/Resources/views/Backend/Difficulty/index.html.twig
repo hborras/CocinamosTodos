@@ -1,0 +1,51 @@
+{% extends app.request.isxmlhttprequest ? "::article.html.twig" : "::backend.html.twig" %}
+{% block article %}
+<h2 class="sub-header">Difficulties List</h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                <b>Name</b>
+            </div>
+            <div class="col-md-2">
+                <b>Options</b>
+            </div>
+        </div>
+        {% set count = 0 %}
+        {% for difficulty in difficulties %}
+        {% if count % 2 == 0 %}
+        <div id ="difficulty_{{difficulty.id}}" class="row pair">
+            {% else %}
+            <div id ="difficulty_{{difficulty.id}}" class="row odd">
+                {% endif %}
+                <div class="col-md-3">
+                    <a class="ajax-url" data-url="{{path('backend_difficulty_show',{'id':difficulty.id})}}">{{ difficulty }}</a>
+                </div>
+                <div class="col-md-2">
+                                <span class="btn dropdown-toggle btn-info col-md-12" data-toggle="dropdown" >
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                    <span class="icon-cog icon-white"></span><span class="caret"></span>
+                                </span>
+                    <ul class="dropdown-menu col-md-10">
+                        <li>
+                            <a class="ajax-url" data-url="{{ path('backend_difficulty_show', { 'id': difficulty.id }) }}">Details</a>
+                        </li>
+                        <li>
+                            <a class="ajax-url" data-url="{{ path('backend_difficulty_edit', { 'id': difficulty.id }) }}">Modify</a>
+                        </li>
+                        <li>
+                            <a class="remove-dialog" data-url="{{ path('backend_difficulty_delete', { 'id': difficulty.id }) }}"
+                                                     data-title="Remove Difficulty"
+                                                     data-text="¿Do you want to remove this difficulty?"
+                                                     data-id="#difficulty_{{ difficulty.id }}">
+                                Remove
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% set count = count + 1 %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
