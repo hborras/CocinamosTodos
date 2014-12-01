@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\CategoryManagerInterface;
 
 class CategoryController extends Controller
 {
@@ -21,8 +22,7 @@ class CategoryController extends Controller
      */
     public function indexAction($root = false,$format)
     {
-        $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('AppBundle:Category')->findAllCategory($root);
+        $categories = $this->getCategoryManager()->findCategories($root);
         if ($format == 'json'){
             $serializer = $this->get('jms_serializer');
             return new Response($serializer->serialize($categories, $format));
@@ -61,7 +61,7 @@ class CategoryController extends Controller
      */
     public function newAction()
     {
-        $category = new Category();
+        $category = $this->getCategoryManager()->createCategory();
         $form   = $this->createForm(new CategoryType(), $category, array(
             'action' => $this->generateUrl('backend_category_create')
         ));
@@ -81,21 +81,17 @@ class CategoryController extends Controller
      */
     public function createAction(Request $request)
     {
-        $category  = new Category();
+        $category = $this->getCategoryManager()->createCategory();
         $form    = $this->createForm(new CategoryType(), $category);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($category);
-            $em->flush();
-
+            $this->getCategoryManager()->saveCategory($category);
             return $this->render('AppBundle:Backend/Category:show.html.twig', array(
                 'entity' => $category
             ));
         }
-
         return $this->render('AppBundle:Backend/Category:new.html.twig', array(
             'entity' => $category,
             'form'   => $form->createView()
@@ -113,10 +109,6 @@ class CategoryController extends Controller
      */
     public function editAction(Category $category)
     {
-        if (!$category) {
-            throw $this->createNotFoundException("Error, We haven't founded this category");
-        }
-
         $form = $this->createForm(new CategoryType(), $category,
             array(
                 'action' => $this->generateUrl('backend_category_update',
@@ -144,18 +136,12 @@ class CategoryController extends Controller
      */
     public function updateAction(Category $category,Request $request)
     {
-        if (!$category) {
-            throw $this->createNotFoundException("Error, We haven't founded this category");
-        }
         $form   = $this->createForm(new CategoryType(), $category);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($category);
-            $em->flush();
-
+            $this->getCategoryManager()->saveCategory($category);
             return $this->render('AppBundle:Backend/Category:show.html.twig', array(
                 'entity' => $category
             ));
@@ -179,14 +165,7 @@ class CategoryController extends Controller
      */
     public function deleteAction(Category $category, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        if (!$category) {
-            throw $this->createNotFoundException('No se ha encontrado la categoria solicitada');
-        }
-
-        $em->remove($category);
-        $em->flush();
+        $this->getCategoryManager()->deleteCategory($category);
         if ($request->isXmlHttpRequest()) {
             $return = json_encode(array("result" => "OK"));
 
@@ -194,5 +173,13 @@ class CategoryController extends Controller
         } else {
             return $this->redirect($this->generateUrl('backend_category_index'));
         }
+    }
+
+    /**
+     * @return CategoryManagerInterface
+     */
+    protected function getCategoryManager()
+    {
+        return $this->container->get('app_bundle.manager.category');
     }
 }

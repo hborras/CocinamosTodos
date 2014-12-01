@@ -26,22 +26,6 @@ class RecipeRepository extends EntityRepository
         return $this->queryAllRecipe()->getResult();
     }
 
-    public function findRecipeById($id = 0)
-    {
-        $em = $this->getEntityManager();
-
-        $query = $em->createQuery('
-            SELECT r
-            FROM AppBundle:Recipe r
-            WHERE r.id = :id
-        ');
-
-        $query->setParameter('id',$id);
-        $query->useResultCache(true, 3600);
-
-        return $query->getSingleResult();
-    }
-
     public function findRecipeBySlug($slug = "")
     {
         $em = $this->getEntityManager();

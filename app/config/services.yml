@@ -7,3 +7,21 @@ services:
         arguments:
             em: "@doctrine.orm.entity_manager"
             class: AppBundle\Entity\Nationality
+
+    app_bundle.manager.category:
+            class: AppBundle\Entity\CategoryManager
+            arguments:
+                em: "@doctrine.orm.entity_manager"
+                class: AppBundle\Entity\Category
+
+    app_bundle.manager.difficulty:
+                class: AppBundle\Entity\DifficultyManager
+                arguments:
+                    em: "@doctrine.orm.entity_manager"
+                    class: AppBundle\Entity\Difficulty
+
+    app_bundle.manager.recipe:
+                class: AppBundle\Entity\RecipeManager
+                arguments:
+                    em: "@doctrine.orm.entity_manager"
+                    class: AppBundle\Entity\Recipe

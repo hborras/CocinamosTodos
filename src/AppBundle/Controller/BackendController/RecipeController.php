@@ -8,21 +8,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Entity\Recipe;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\RecipeManagerInterface;
 
 class RecipeController extends Controller
 {
     /**
-     * Get all recipes. If $root is enabled, It gets only root recipes
-     *
-     * @param boolean $root
+     * Get all recipes.
      *
      * @return Response
      */
-    public function indexAction($root = false)
+    public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $recipes = $em->getRepository('AppBundle:Recipe')->findAllRecipe();
+        $recipes = $this->getRecipeManager()->findRecipes();
 
         return $this->render('AppBundle:Backend/Recipe:index.html.twig', array(
             'recipes' => $recipes
@@ -33,13 +30,18 @@ class RecipeController extends Controller
      * Show a recipe and its recipes
      *
      * @param Recipe $recipe
+     * @param string $format
      *
      * @return Response
      *
      * @ParamConverter("recipe", class="AppBundle:Recipe")
      */
-    public function showAction(Recipe $recipe)
+    public function showAction(Recipe $recipe, $format)
     {
+        if ($format == 'json'){
+            $serializer = $this->get('jms_serializer');
+            return new Response($serializer->serialize($recipe, $format));
+        }
         return $this->render('AppBundle:Backend/Recipe:show.html.twig', array(
             'entity' => $recipe
         ));
@@ -53,7 +55,7 @@ class RecipeController extends Controller
      */
     public function newAction()
     {
-        $recipe = new Recipe();
+        $recipe = $this->getRecipeManager()->createRecipe();
         $form   = $this->createForm(new RecipeType(), $recipe, array(
             'action' => $this->generateUrl('backend_recipe_create')
         ));
@@ -73,16 +75,13 @@ class RecipeController extends Controller
      */
     public function createAction(Request $request)
     {
-        $recipe  = new Recipe();
+        $recipe  = $this->getRecipeManager()->createRecipe();
         $form    = $this->createForm(new RecipeType(), $recipe);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($recipe);
-            $em->flush();
-
+            $this->getRecipeManager()->saveRecipe($recipe);
             return $this->render('AppBundle:Backend/Recipe:show.html.twig', array(
                 'entity' => $recipe
             ));
@@ -105,10 +104,6 @@ class RecipeController extends Controller
      */
     public function editAction(Recipe $recipe)
     {
-        if (!$recipe) {
-            throw $this->createNotFoundException("Error, We haven't founded this recipe");
-        }
-
         $form = $this->createForm(new RecipeType(), $recipe,
             array(
                 'action' => $this->generateUrl('backend_recipe_update',
@@ -136,17 +131,12 @@ class RecipeController extends Controller
      */
     public function updateAction(Recipe $recipe,Request $request)
     {
-        if (!$recipe) {
-            throw $this->createNotFoundException("Error, We haven't founded this recipe");
-        }
         $form   = $this->createForm(new RecipeType(), $recipe);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($recipe);
-            $em->flush();
+            $this->getRecipeManager()->saveRecipe($recipe);
 
             return $this->render('AppBundle:Backend/Recipe:show.html.twig', array(
                 'entity' => $recipe
@@ -171,14 +161,7 @@ class RecipeController extends Controller
      */
     public function deleteAction(Recipe $recipe, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        if (!$recipe) {
-            throw $this->createNotFoundException('No se ha encontrado la categoria solicitada');
-        }
-
-        $em->remove($recipe);
-        $em->flush();
+        $this->getRecipeManager()->deleteRecipe($recipe);
         if ($request->isXmlHttpRequest()) {
             $return = json_encode(array("result" => "OK"));
 
@@ -186,5 +169,13 @@ class RecipeController extends Controller
         } else {
             return $this->redirect($this->generateUrl('backend_recipe_index'));
         }
+    }
+
+    /**
+     * @return RecipeManagerInterface
+     */
+    protected function getRecipeManager()
+    {
+        return $this->container->get('app_bundle.manager.recipe');
     }
 }

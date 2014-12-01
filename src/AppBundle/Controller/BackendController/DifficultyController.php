@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use AppBundle\Entity\Difficulty;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\DifficultyManagerInterface;
 
 class DifficultyController extends Controller
 {
@@ -20,8 +21,7 @@ class DifficultyController extends Controller
      */
     public function indexAction($format)
     {
-        $em = $this->getDoctrine()->getManager();
-        $difficulties = $em->getRepository('AppBundle:Difficulty')->findAllDifficulty();
+        $difficulties = $this->getDifficultyManager()->findDifficulties();
         if ($format == 'json'){
             $serializer = $this->get('jms_serializer');
             return new Response($serializer->serialize($difficulties, $format));
@@ -60,7 +60,7 @@ class DifficultyController extends Controller
      */
     public function newAction()
     {
-        $difficulty = new Difficulty();
+        $difficulty = $this->getDifficultyManager()->createDifficulty();
         $form   = $this->createForm(new DifficultyType(), $difficulty, array(
             'action' => $this->generateUrl('backend_difficulty_create')
         ));
@@ -80,15 +80,13 @@ class DifficultyController extends Controller
      */
     public function createAction(Request $request)
     {
-        $difficulty  = new Difficulty();
+        $difficulty = $this->getDifficultyManager()->createDifficulty();
         $form    = $this->createForm(new DifficultyType(), $difficulty);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($difficulty);
-            $em->flush();
+            $this->getDifficultyManager()->saveDifficulty($difficulty);
 
             return $this->render('AppBundle:Backend/Difficulty:show.html.twig', array(
                 'entity' => $difficulty
@@ -112,10 +110,6 @@ class DifficultyController extends Controller
      */
     public function editAction(Difficulty $difficulty)
     {
-        if (!$difficulty) {
-            throw $this->createNotFoundException("Error, We haven't founded this difficulty");
-        }
-
         $form = $this->createForm(new DifficultyType(), $difficulty,
             array(
                 'action' => $this->generateUrl('backend_difficulty_update',
@@ -143,17 +137,12 @@ class DifficultyController extends Controller
      */
     public function updateAction(Difficulty $difficulty,Request $request)
     {
-        if (!$difficulty) {
-            throw $this->createNotFoundException("Error, We haven't founded this difficulty");
-        }
         $form   = $this->createForm(new DifficultyType(), $difficulty);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($difficulty);
-            $em->flush();
+            $this->getDifficultyManager()->saveDifficulty($difficulty);
 
             return $this->render('AppBundle:Backend/Difficulty:show.html.twig', array(
                 'entity' => $difficulty
@@ -178,14 +167,7 @@ class DifficultyController extends Controller
      */
     public function deleteAction(Difficulty $difficulty, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        if (!$difficulty) {
-            throw $this->createNotFoundException('No se ha encontrado la categoria solicitada');
-        }
-
-        $em->remove($difficulty);
-        $em->flush();
+        $this->getDifficultyManager()->deleteDifficulty($difficulty);
         if ($request->isXmlHttpRequest()) {
             $return = json_encode(array("result" => "OK"));
 
@@ -193,5 +175,13 @@ class DifficultyController extends Controller
         } else {
             return $this->redirect($this->generateUrl('backend_difficulty_index'));
         }
+    }
+
+    /**
+     * @return DifficultyManagerInterface
+     */
+    protected function getDifficultyManager()
+    {
+        return $this->container->get('app_bundle.manager.difficulty');
     }
 }

@@ -86,6 +86,7 @@ class Nationality extends BaseSlug implements NationalityInterface
     }
 
     public function hasRecipe($name){
-        return in_array($name, $this->getRecipeNames());
+        // TODO: Real implementation of hasRecipe
+        return in_array($name, $this->getRecipes());
     }
 }
